@@ -1,0 +1,6 @@
+1) Bindings
+.vs\config\applicationhost.config ----Add New binding--- <binding protocol="http" bindingInformation="*:65097:localhost" />
+							<binding protocol="http" bindingInformation="*:65097:192.168.2.135" />
+2) WindowFirewall --- allow port
+
+3) cmd ----- netsh http add urlacl url=http://localhost:65097/ user=everyone

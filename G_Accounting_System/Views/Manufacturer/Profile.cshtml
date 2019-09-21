@@ -1,0 +1,85 @@
+﻿@using G_Accounting_System.Models
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/_Shared/_LayoutOne.cshtml";
+}
+
+@Html.AntiForgeryToken()
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-3">
+            <!-- Profile Image -->
+            <div class="box box-primary">
+                <div class="box-body box-profile padding_bottom_none">
+
+                    <img class="profile-user-img img-responsive img-circle" src="~/Resources/img/Supplier-128x128.png" alt="User profile picture">
+                    <h3 class="profile-username text-center" id="cp__manufacturer_name"></h3>
+                    <ul class="list-group list-group-unbordered">
+                        <li class="list-group-item">
+                            <b>Status</b> <a class="pull-right" id="cp__manufacturer_status"></a>
+                        </li>
+                        <li class="list-group-item border_bottom_0px_ padding_bottom_none">
+                            <button type="button" class="btn btn-block btn-danger" onclick='DelManufacturer(this)' id="PDeleteManufacturer">Delete</button>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-9">
+
+            <div class="alert alert-success alert-dismissible" id="_Success_Message_Display_" style="display:none; margin:5px;">
+                <h4><i class="icon fa fa-check"></i> Message !</h4> <p></p>
+            </div>
+
+            <div class="alert alert-danger alert-dismissible" id="_Error_Message_Display_" style="display: none; margin: 5px;">
+                <button type="button" class="close" id="_Error_Message_Display_Btn_">×</button>
+                <h4><i class="icon fa fa-ban"></i> Alert!</h4> <p></p>
+            </div>
+
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#activity" data-toggle="tab">Activity</a></li>
+                    @*<li><a href="#settings" data-toggle="tab">Update Information</a></li>*@
+
+                </ul>
+                <div class="tab-content">
+                    <div class="active tab-pane" id="activity">
+                        <!-- The timeline -->
+                        <ul class="timeline timeline-inverse ACTIVITY">
+                            <!-- timeline time label -->
+                           
+                        </ul>
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="settings">
+                        <form class="form-horizontal">
+                            <input type="hidden" name="manufacturers_id">
+                            <div class="form-group">
+                                <label for="inputName" class="col-sm-3 control-label">Manufacturer Name : </label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="PManufacturer_name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="button" class="btn btn-success" id="Update_Existing_categories">Update Information</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+            </div>
+            <!-- /.nav-tabs-custom -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->

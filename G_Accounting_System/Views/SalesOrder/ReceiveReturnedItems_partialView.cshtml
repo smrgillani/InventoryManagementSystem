@@ -1,0 +1,33 @@
+﻿<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Receive Date : </label>
+            <input type="text" class="form-control" tabindex="3" name="ReturnRecieveDate" value="@DateTime.Now.Date.ToString("dd/MM/yyyy")">
+
+            <!-- /.form-group -->
+        </div>
+        <!-- /.col -->
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+
+        <table id="tblReceiveSaleReturnItemList" class="table table-bordered nowrap" cellspacing="0">
+            <thead>
+                <tr>
+                    <th style="text-align:center">Item Name</th>
+                    <th style="text-align:center">Returned</th>
+                    <th style="text-align:center">Received</th>
+                    <th style="text-align:center">Quantity to Receive</th>
+                </tr>
+            </thead>
+            <tbody id="SAleReceiveItemslistbody"></tbody>
+        </table>
+
+    </div>
+</div>
+
+
+<script src="@Url.Content("~/Resources/js/Admin/PurchaseI.js")"></script>
+
+

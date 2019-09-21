@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_Shared/_LayoutOne.cshtml";
+}
+@Html.AntiForgeryToken()
+
+<section class="content-header">
+    <h1>
+        Mailbox
+        <small>13 new messages</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Mailbox</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="alert alert-success alert-dismissible" id="_Success_Message_Display_" style="display:none;">
+        <h4><i class="icon fa fa-check"></i> Message !</h4> <span></span>
+    </div>
+
+    <div class="alert alert-danger alert-dismissible" id="_Error_Message_Display_" style="display:none;">
+        <button type="button" class="close" id="_Error_Message_Display_Btn_">×</button>
+        <h4><i class="icon fa fa-ban"></i> Alert!</h4> <span></span>
+    </div>
+    <div class="row">
+        <input type="hidden" value="0" id="_Folder_Name_" />
+        <input type="hidden" value="0" id="_New_Mail_id" />
+        <input type="hidden" value="0" id="Id" />
+        <input type="hidden" value="0" id="isValid" />
+        <input type="hidden" value="0" id="Validity" />
+
+        <div class="col-md-3">
+            <button class="btn btn-primary btn-block margin-bottom _Compose_Mail_">Compose</button>
+            @*<a href="@Url.Action("ComposeMail", "Mailbox")" class="btn btn-primary btn-block margin-bottom">Compose</a>*@
+
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Folders</h3>
+
+                    <div class="box-tools">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body no-padding">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="active Folder">
+                            <a href="#">
+                                <i class="fa fa-inbox"></i> <span class="FolderName">Inbox</span>
+                                <span class="label label-primary pull-right InboxCount"></span>
+                            </a>
+                        </li>
+                        <li class="Folder">
+                            <a href="#">
+                                <i class="fa fa-envelope-o"></i> <span class="FolderName">Sent</span>
+                                <span class="label label-default pull-right SentCount"></span>
+                            </a>
+                        </li>
+                        <li class="Folder">
+                            <a href="#">
+                                <i class="fa fa-file-text-o"></i> <span class="FolderName">Drafts</span>
+                                <span class="label label-info pull-right DraftsCount"></span>
+                            </a>
+                        </li>
+                        <li class="Folder">
+                            <a href="#">
+                                <i class="fa fa-filter"></i> <span class="FolderName">Junk</span>
+                                <span class="label label-success pull-right JunkCount"></span>
+                            </a>
+                        </li>
+                        <li class="Folder">
+                            <a href="#">
+                                <i class="fa fa-trash-o"></i> <span class="FolderName">Trash</span>
+                                <span class="label label-warning pull-right TrashCount"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /. box -->
+            @*<div class="box box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Labels</h3>
+
+                    <div class="box-tools">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body no-padding">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li ><a href="#"><i class="fa fa-circle-o text-red"></i> <span class="FolderName">Important</span></a></li>
+                        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> Promotions</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o text-light-blue"></i> Social</a></li>
+                    </ul>
+                </div>
+
+            </div>*@
+        </div>
+        <!-- /.col -->
+        <div class="col-md-9">
+            <div class="_Mail_Box_Content_"></div>
+
+
+            <!-- /. box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>

@@ -1,0 +1,2 @@
+id,Stock_id,Item_type,File_Name,Item_Name,Item_Sku,Item_Category,Category_id,Item_Unit,Unit_id,Item_Manufacturer,Manufacturer_id,Item_Upc,Item_Brand,Brand_id,Item_Mpn,Item_Ean,Item_Isbn,Item_Sell_Price,Item_Tax,Item_Purchase_Price,Item_Preferred_Vendor,Vendor_id,Enable,AddedBy,UpdatedBy,Delete_Request_By,Delete_Status,Time,Date,Month,Year,Item_file,pFlag,pDesc,pItem_id_Out
+"4","0","","","Sting","","","0","","0","","0","","","0","","","","","","","","0","","0","0","2","Requested","","","","","","","",""

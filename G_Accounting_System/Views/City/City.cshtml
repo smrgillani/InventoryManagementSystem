@@ -1,0 +1,81 @@
+﻿@using G_Accounting_System.Models
+@model Classes
+<div class="box box-default">
+    <div class="box-header with-border">
+        <h3 class="box-title">@(Model.City == null ? "Add New City" : "Update City Info")</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool _Add_New_City_Form_Remover_"><i class="fa fa-remove"></i></button>
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div class="nav-tabs-custom box_shadow_none">
+            <!-- Tabs within a box -->
+            <ul class="nav nav-tabs nav_tabs_for_new_city nav_tabs_new_custom_bg">
+                <li class="active"><a href="#v-general-dtls" data-toggle="tab">General Details</a></li>
+            </ul>
+
+            <input type="hidden" name="cities_id" value="@(Model.City != null ? Model.City.id : 0)" />
+
+            <div class="tab-content no-padding">
+                <!-- Morris chart - Sales -->
+                <div class="chart tab-pane active" id="v-general-dtls" style="position: relative; height: auto;">
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>City Name : <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" tabindex="1" value="@(Model.City != null ? Model.City.Name : "")" name="Full_name">
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Country : <span style="color:red">*</span></label>
+                                <select class="form-control select2 CountryDrodown" style="width:100%;" tabindex="2" name="Address_country">
+                                    
+                                    @if (Model.Countries != null) {
+                                        <option value="0" @(Model.City != null ? (Model.City.IsEnabled.Equals("0")) ? "Selected" : "" : "")>Select Country</option>
+                                        foreach(var dbr in Model.Countries){
+                                            <option value="@dbr.id" @(Model.City != null ? (Model.City.Country.Equals(dbr.id.ToString())) ? "Selected" : "" : "")> @dbr.Name</option>    
+                                        }
+                                    }
+
+                                </select>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Status : </label>
+                                <select class="form-control select2" style="width:100%;" tabindex="3" name="C_Status">
+                                    <option value="1" @(Model.City != null ? (Model.City.IsEnabled.Equals("1")) ? "Selected" : "" : "")>Active</option>
+                                    <option value="0" @(Model.City != null ? (Model.City.IsEnabled.Equals("0")) ? "Selected" : "" : "")>Inactive</option>
+                                </select>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                <!-- /.row -->
+
+
+                </div>
+            </div>
+        </div>
+
+        <!-- /.row -->
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+        <button class="btn btn-default _Add_New_City_Form_Remover__" tabindex="5">Cancel</button>
+        <button id="_Add_New_City_Form_Save_" tabindex="4" class="btn btn-info pull-right">Save</button>
+    </div>
+</div>
+<script src="@Url.Content("~/Resources/js/Admin/CityI.js")"></script>

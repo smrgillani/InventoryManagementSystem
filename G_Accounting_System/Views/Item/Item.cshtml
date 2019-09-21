@@ -1,0 +1,231 @@
+﻿<div class="box-header with-border">
+    <h3 class="box-title">Add New Item</h3>
+    <div class="box-tools pull-right">
+        @*<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>*@
+        <button type="button" class="btn btn-box-tool" id="_Add_New_Item_Form_Remover_"><i class="fa fa-remove"></i></button>
+    </div>
+</div>
+<!-- /.box-header -->
+<div class="box-body">
+    <div class="nav-tabs-custom box_shadow_none">
+        <!-- Tabs within a box -->
+        <ul class="nav nav-tabs nav_tabs_for_new_item nav_tabs_new_custom_bg">
+            <li class="active"><a href="#i-general-dtls" data-toggle="tab">General Details</a></li>
+            <li><a href="#i-sales-dtls" data-toggle="tab">Sales Information</a></li>
+            <li><a href="#i-purchase-dtls" data-toggle="tab">Purchase Information</a></li>
+            <li><a href="#i-openingstock-dtls" data-toggle="tab">Opening Stock</a></li>
+        </ul>
+
+        <div class="tab-content no-padding">
+            <!-- Morris chart - Sales -->
+            <div class="chart tab-pane active" id="i-general-dtls" style="position: relative; height: auto;">
+                <br />
+                <div class="row">
+                    <input type="hidden" name="itemid" value="0" />
+                    <input type="hidden" name="stockid" value="0" />
+                    <textarea id="base64" hidden="hidden" rows="5"></textarea>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Item Type : </label>
+                            <select class="form-control select2" style="width:100%;" tabindex="1" name="item_type" id="item_type" required="">
+                                <option value="Good">Good</option>
+                                <option value="Service">Service</option>
+                            </select>
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Item Image : </label>
+                            <input type="file" id="item_file" name="item_file" tabindex="2" />
+                        </div>
+
+                        <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Item Name : <span style="color:red">*</span></label>
+                            <input type="text" class="form-control" tabindex="3" name="item_Name">
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <label>SKU : <span style="color:red">*</span></label>
+                            <input type="text" class="form-control" tabindex="5" name="item_Sku">
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Item Category : <span style="color:red">*</span></label>
+                            <select class="form-control select2 ItemCategoryDropdown" style="width:100%;" tabindex="4" name="item_Category" id="item_Category" required=""></select>
+                            <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#modal-AddNewCategory">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <label>Unit : <span style="color:red">*</span></label>
+                            <select class="form-control select2 ItemUnitDropdown" style="width:100%;" tabindex="6" name="item_Unit" id="item_Unit" required=""></select>
+                            <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#modal-AddNewUnit">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Manufacturer : <span style="color:red">*</span></label>
+                            <select class="form-control select2 ItemManufacturerDropdown" style="width:100%;" tabindex="7" name="item_Manufacturer" id="item_Manufacturer" required=""></select>
+                            <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#modal-AddNewManufacturer">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <label>UPC : </label>
+                            <input type="text" class="form-control" tabindex="9" name="item_Upc">
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label>Brand : <span style="color:red">*</span></label>
+                                <select class="form-control select2 ItemBrandDropdown" style="width:100%;" tabindex="8" name="item_Brand" id="item_Brand" required=""></select>
+                                <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#modal-AddNewBrand">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <label>MPN : </label>
+                            <input type="text" class="form-control" tabindex="10" name="item_Mpn">
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>EAN : </label>
+                            <input type="text" class="form-control" tabindex="11" name="item_Ean">
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label>ISBN : </label>
+                                <input type="text" class="form-control" tabindex="12" name="item_Isbn">
+                            </div>
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+
+            </div>
+            <div class="chart tab-pane" id="i-sales-dtls" style="position: relative; height: auto;">
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Selling Price (PKR) : <span style="color:red">*</span></label>
+                            <input type="text" class="form-control" tabindex="13" value="0" name="item_Sell_Price">
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label>Tax (%) : </label>
+                                <input type="text" class="form-control" tabindex="14" value="0" name="item_Tax">
+                            </div>
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </div>
+            <div class="chart tab-pane" id="i-purchase-dtls" style="position: relative; height: auto;">
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Purchase Price (PKR) : <span style="color:red">*</span></label>
+                            <input type="text" class="form-control" tabindex="15" value="0" name="item_Purchase_Price">
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-6">
+                        <label>Preferred Vendor : <span style="color:red">*</span></label>
+                        <select class="form-control select2 VendorDropdown" style="width:100%;" tabindex="16" name="item_Preferred_Vendor" id="item_Preferred_Vendor"></select>
+                        <button type="button" class="btn btn-default pull-right" id="_Add_New_Vendor_Pop_" data-toggle="modal" data-target="#modal-AddNewVendor">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                        <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </div>
+            <div class="chart tab-pane" id="i-openingstock-dtls" style="position: relative; height: auto;">
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Opening Stock : </label>
+                            <input type="number" class="form-control" tabindex="17" value="0" name="item_Opening_Stock">
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Reorder Level : </label>
+                            <input type="number" class="form-control" tabindex="18" value="0" name="item_Reorder_Level">
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                    <!-- /.col -->
+                </div>
+                <div class="row">
+                    @*<div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label>Opening Stock Value  : </label>
+                                    <input type="number" class="form-control" tabindex="19" value="0" name="item_Opening_Stock_Value">
+                                </div>
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- /.row -->
+</div>
+<!-- /.box-body -->
+<div class="box-footer">
+    <button id="_Add_New_Item_Form_Remover__" class="btn btn-default" tabindex="20">Cancel</button>
+    <button id="_Add_New_Item_Form_Save_" tabindex="19" class="btn btn-info pull-right">Next</button>
+</div>
+
+<script src="@Url.Content("~/Resources/js/Admin/ItemI.js")"></script>

@@ -1,0 +1,558 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_Shared/_LayoutOne.cshtml";
+}
+
+<div class="fill list-header topgrad">
+    <div class="action-row">
+
+        @*<a class="pagetips-title separationline pull-right">
+            <i class="fa fa-lightbulb-o" style="font-size:24px;"></i> Page Tips
+        </a>*@
+
+        <div class="btn-toolbar pull-right">
+            <button class="btn btn-primary-add-new btn-sm-add-new" id="_Add_New_Sales_Order_btn_">
+                <i class="fa fa-plus font_size_14px_"></i> <span> New </span>
+            </button>
+            <button id="_Send_request_To_DeleteSales" style="display:none" class="btn btn-danger btn-sm-add-new">
+                <i class="fa fa-trash-o font_size_14px_"></i> <span> Request to Delete </span>
+            </button>
+            @*<div class="btn-group list-sorter margin_right_5px_">
+            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle top_bottom_padding_5px_">
+                <svg class="icon text-top" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path fill="#020202" d="M0 96h512v64H0zm0 128h512v64H0zm0 128h512v64H0z"></path></svg>
+            </button>
+        </div>*@
+        </div>
+        <div class="dropdown clearfix list-title ember-view">
+            <a data-toggle="dropdown" class="dropdown-toggle">
+                <!---->  Sales Orders <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu scrollmenu">
+                <li class="ListSaleorderFilter"><a>All</a></li>
+                <li class="divider"></li>
+                <li class="ListSaleorderFilter"><a>Active</a></li>
+                <li class="ListSaleorderFilter"><a>Inactive</a></li>
+
+            </ul>
+        </div>
+    </div>  
+</div>
+
+<section class="content">
+
+
+    <div class="box-body">
+
+        <div class="alert alert-success alert-dismissible" id="_Success_Message_Display_" style="display:none;">
+            <h4><i class="icon fa fa-check"></i> Message !</h4> <p></p>
+        </div>
+
+
+
+        <div class="alert alert-danger alert-dismissible" id="_Error_Message_Display_" style="display:none;">
+            <button type="button" class="close" id="_Error_Message_Display_Btn_">×</button>
+            <h4><i class="icon fa fa-ban"></i> Alert!</h4> <p></p>
+        </div>
+
+    </div>
+
+    <!-- Add New Sales Orders Form Box -->
+    @Html.AntiForgeryToken()
+    <div class="_Add_New_SalesOrder_Form_" style="display:none;"></div>
+    <div class="modal fade" id="modal-AddNewItem">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Add New Item</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="nav-tabs-custom box_shadow_none">
+                        <!-- Tabs within a box -->
+                        <ul class="nav nav-tabs nav_tabs_for_new_item nav_tabs_new_custom_bg">
+                            <li class="active"><a href="#i-general-dtls" data-toggle="tab">General Details</a></li>
+                            <li><a href="#i-sales-dtls" data-toggle="tab">Sales Information</a></li>
+                            <li><a href="#i-purchase-dtls" data-toggle="tab">Purchase Information</a></li>
+                            <li><a href="#i-openingstock-dtls" data-toggle="tab">Opening Stock</a></li>
+                        </ul>
+
+                        <div class="tab-content no-padding">
+                            <!-- Morris chart - Sales -->
+                            <div class="chart tab-pane active" id="i-general-dtls" style="position: relative; height: auto;">
+                                <br />
+                                <div class="row">
+                                    <input type="hidden" name="itemid" value="0" />
+                                    <input type="hidden" name="stockid" value="0" />
+                                    <textarea id="base64" hidden="hidden" rows="5"></textarea>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Item Type : </label>
+                                            <select class="form-control select2" style="width:100%;" tabindex="1" name="item_type" id="item_type" required="">
+                                                <option value="Good">Good</option>
+                                                <option value="Service">Service</option>
+                                            </select>
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Item Image : </label>
+                                            <input type="file" id="item_file" name="item_file" tabindex="2" />
+                                        </div>
+
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Item Name : <span style="color:red">*</span></label>
+                                            <input type="text" class="form-control" tabindex="3" name="item_Name">
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>SKU : <span style="color:red">*</span></label>
+                                            <input type="text" class="form-control" tabindex="5" name="item_Sku">
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Item Category : <span style="color:red">*</span></label>
+                                            <select class="form-control select2 ItemCategoryDropdown" style="width:100%;" tabindex="4" name="item_Category" id="item_Category" required=""></select>
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Unit : <span style="color:red">*</span></label>
+                                            <select class="form-control select2 ItemUnitDropdown" style="width:100%;" tabindex="6" name="item_Unit" id="item_Unit" required=""></select>
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Manufacturer : <span style="color:red">*</span></label>
+                                            <select class="form-control select2 ItemManufacturerDropdown" style="width:100%;" tabindex="7" name="item_Manufacturer" id="item_Manufacturer" required=""></select>
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>UPC : </label>
+                                            <input type="text" class="form-control" tabindex="9" name="item_Upc">
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label>Brand : <span style="color:red">*</span></label>
+                                                <select class="form-control select2 ItemBrandDropdown" style="width:100%;" tabindex="8" name="item_Brand" id="item_Brand" required=""></select>
+                                            </div>
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>MPN : </label>
+                                            <input type="text" class="form-control" tabindex="10" name="item_Mpn">
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>EAN : </label>
+                                            <input type="text" class="form-control" tabindex="11" name="item_Ean">
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label>ISBN : </label>
+                                                <input type="text" class="form-control" tabindex="12" name="item_Isbn">
+                                            </div>
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+
+                            </div>
+                            <div class="chart tab-pane" id="i-sales-dtls" style="position: relative; height: auto;">
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Selling Price (PKR) : <span style="color:red">*</span></label>
+                                            <input type="text" class="form-control" tabindex="13" value="0" name="item_Sell_Price">
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label>Tax (%) : </label>
+                                                <input type="text" class="form-control" tabindex="14" value="0" name="item_Tax">
+                                            </div>
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                            </div>
+                            <div class="chart tab-pane" id="i-purchase-dtls" style="position: relative; height: auto;">
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Purchase Price (PKR) : <span style="color:red">*</span></label>
+                                            <input type="text" class="form-control" tabindex="15" value="0" name="item_Purchase_Price">
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-md-6">
+                                        <label>Preferred Vendor : <span style="color:red">*</span></label>
+                                        <select class="form-control select2 VendorDropdown" style="width:100%;" tabindex="16" name="item_Preferred_Vendor" id="item_Preferred_Vendor"></select>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                            </div>
+                            <div class="chart tab-pane" id="i-openingstock-dtls" style="position: relative; height: auto;">
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Opening Stock : </label>
+                                            <input type="number" class="form-control" tabindex="17" value="0" name="item_Opening_Stock">
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Reorder Level : </label>
+                                            <input type="number" class="form-control" tabindex="18" value="0" name="item_Reorder_Level">
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <!-- /.col -->
+                                </div>
+                                <div class="row">
+                                    @*<div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="form-group">
+                                                    <label>Opening Stock Value  : </label>
+                                                    <input type="number" class="form-control" tabindex="19" value="0" name="item_Opening_Stock_Value">
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" id="_Cancel_New_Item_Pop_">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="_Save_New_Item_Pop_">Next</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div class="modal fade" id="modal-AddNewCustomer">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Add New Customer</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="nav-tabs-custom box_shadow_none">
+                        <!-- Tabs within a box -->
+                        <ul class="nav nav-tabs nav_tabs_for_new_customer nav_tabs_new_custom_bg">
+                            <li class="active"><a href="#c-general-dtls" data-toggle="tab">General Details</a></li>
+                            <li><a href="#c-address-dtls" data-toggle="tab">Address Details</a></li>
+                            <li><a href="#c-payment-dtls" data-toggle="tab">Payment Details</a></li>
+                        </ul>
+
+                        <input type="hidden" name="customers_id" value="@(Model != null ? Model.id : 0)" />
+
+                        <div class="tab-content no-padding">
+                            <!-- Morris chart - Sales -->
+                            <input type="hidden" id="customerid" value="0" />
+                            <div class="chart tab-pane active" id="c-general-dtls" style="position: relative; height: auto;">
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Salutation : </label>
+                                            <select class="form-control select2" style="width:100%;" tabindex="1" name="Salutation">
+                                                <option value="1" @(Model != null ? (Model.Salutation.Equals("1")) ? "Selected" : "" : "")>Mr.</option>
+                                                <option value="2" @(Model != null ? (Model.Salutation.Equals("2")) ? "Selected" : "" : "")>Mrs.</option>
+                                                <option value="3" @(Model != null ? (Model.Salutation.Equals("3")) ? "Selected" : "" : "")>Ms.</option>
+                                                <option value="4" @(Model != null ? (Model.Salutation.Equals("4")) ? "Selected" : "" : "")>Miss</option>
+                                                <option value="5" @(Model != null ? (Model.Salutation.Equals("5")) ? "Selected" : "" : "")>Dr.</option>
+                                            </select>
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Company : <span style="color:red">*</span></label>
+                                            <select class="form-control select2 CompanyDropdown" id="getContact_company" style="width:100%;" tabindex="3" name="Contact_company"></select>
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label>Full Name : <span style="color:red">*</span></label>
+                                                <input type="text" class="form-control" tabindex="2" value="@(Model != null ? Model.Name : "")" name="Full_name">
+                                            </div>
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Designation : </label>
+                                            <input type="text" class="form-control" tabindex="4" name="Designation" value="@(Model != null ? Model.Designation : "")">
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Contact Phone (Landline) : <span style="color:red">*</span></label>
+                                            <input type="number" class="form-control" tabindex="5" name="Contact_phone_landline" value="@(Model != null ? Model.Landline : "")">
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Contact Email : </label>
+                                            <input type="text" class="form-control" tabindex="7" name="Contact_email" value="@(Model != null ? Model.Email: "")">
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label>Contact Phone (Mobile) : <span style="color:red">*</span></label>
+                                                <input type="number" class="form-control" tabindex="6" name="Contact_phone_mobile" value="@(Model != null ? Model.Mobile : "")">
+                                            </div>
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Website : </label>
+                                            <input type="text" class="form-control" tabindex="8" name="Website" value="@(Model != null ? Model.Website : "")">
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+
+                            </div>
+                            <div class="chart tab-pane" id="c-address-dtls" style="position: relative; height: auto;">
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Address : <span style="color:red">*</span></label>
+                                            <input type="text" class="form-control" tabindex="9" name="Address" value="@(Model != null ? Model.Address : "")">
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Country : <span style="color:red">*</span></label>
+                                            <select class="form-control select2 CountryDrodown" id="getAddress_country" style="width:100%;" tabindex="11" name="Address_country"></select>
+                                            @*<input type="text" class="form-control" tabindex="12" name="Address_country" id="Address_country" value="@(Model != null ? Model.Country : "")">*@
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label>Phone : <span style="color:red">*</span></label>
+                                                <input type="number" class="form-control" tabindex="10" name="Address_phone" value="@(Model != null ? Model.AddressLandline : "")">
+                                            </div>
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>City : <span style="color:red">*</span></label>
+                                            <select class="form-control select2 CityDropdown" id="getAddress_city" style="width:100%;" tabindex="12" name="Address_city"></select>
+                                            @*<input type="text" class="form-control" tabindex="11" name="Address_city" value="@(Model != null ? Model.City : "")">*@
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                            </div>
+                            <div class="chart tab-pane" id="c-payment-dtls" style="position: relative; height: auto;">
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Bank A/C Number : </label>
+                                            <input type="text" class="form-control" tabindex="13" name="Bank_account_number" value="@(Model != null ? Model.BankAccountNumber : "")">
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-md-6">
+                                        <label>Payment Method : </label>
+                                        <select class="form-control select2" style="width:100%;" tabindex="14" name="Payment_method">
+                                            <option value="1" @(Model != null ? (Model.PaymentMethod.Equals("1")) ? "Selected" : "" : "")>Cheque</option>
+                                            <option value="2" @(Model != null ? (Model.PaymentMethod.Equals("2")) ? "Selected" : "" : "")>Cash</option>
+                                            <option value="3" @(Model != null ? (Model.PaymentMethod.Equals("3")) ? "Selected" : "" : "")>Card</option>
+                                        </select>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>Status : </label>
+                                        <select class="form-control select2" style="width:100%;" tabindex="15" name="C_Status">
+                                            <option value="1" @(Model != null ? (Model.IsEnabled.Equals("1")) ? "Selected" : "" : "")>Active</option>
+                                            <option value="0" @(Model != null ? (Model.IsEnabled.Equals("0")) ? "Selected" : "" : "")>Inactive</option>
+                                        </select>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- /.row -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" id="_Cancel_New_Customer_Pop_">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="_Save_New_Customer_Pop_">Next</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+    <input type="hidden" id="newSaleorder_id" value="0" />
+    <input type="hidden" id="newSaleorderdetail_id" value="0" />
+    <!-- /.Add New Sales Order Form Box -->
+    <!-- Details Of Sales Order -->
+    <div class="box">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box-body bottom_padding_5px_">
+                    <!-- Date dd/mm/yyyy -->
+                    <div class="form-group margin_bottom_5px">
+                        <label>From Date:</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" name="SalesStartDate" class="form-control datepicker" value="@DateTime.Now.Date.ToString("dd/MM/yyyy")" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-6">
+                <div class="box-body bottom_padding_5px_">
+                    <!-- Date dd/mm/yyyy -->
+                    <div class="form-group margin_bottom_5px">
+                        <label>To Date:</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" class="form-control datepicker" name="SalesEndDate" value="@DateTime.Now.Date.ToString("dd/MM/yyyy")" data-inputmask="'alias' : 'dd/mm/yyyy'" data-mask>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        @*<div class="row">
+                <div class="col-lg-12">
+                    <div class="box-body">
+                        <button id="_Send_request_To_DeletePremises" class="btn btn-danger pull-right">Send Request To Delete Selected Purchase Orders</button>
+                    </div>
+                </div>
+            </div>*@
+        @*<div class="box-header">
+                <h3 class="box-title">Data Table With Full Features</h3>
+            </div>*@
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="salesorder_list" class="table table-striped table-bordered" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Order Number</th>
+                        <th>Customer Name</th>
+                        <th>Total Items </th>
+                        <th>Total Amount </th>
+                        <th>Date</th>
+                        <th>Sale Order Status</th>
+                        <th>Status</th>
+                        <th>Invoiced</th>
+                        <th>Packed</th>
+                        <th>Shipped</th>
+                        <th>Operations</th>
+                        <th>Select to Delete</th>
+                    </tr>
+                </thead>
+                <tbody id="_tbl_SalesOrder_List_Body_"></tbody>
+                <tfoot>
+                    <tr>
+                        <th>Order Number</th>
+                        <th>Customer Name</th>
+                        <th>Total Items </th>
+                        <th>Total Amount </th>
+                        <th>Date</th>
+                        <th>Sale Order Status</th>
+                        <th>Status</th>
+                        <th>Invoiced</th>
+                        <th>Packed</th>
+                        <th>Shipped</th>
+                        <th>Operations</th>
+                        <th>Select to Delete</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+    <!-- / Details Of Sales Order -->
+</section>
+
+

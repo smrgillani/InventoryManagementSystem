@@ -1,0 +1,128 @@
+﻿@{
+    ViewBag.Title = "Stock";
+    Layout = "~/Views/_Shared/_LayoutOne.cshtml";
+}
+
+
+@Html.AntiForgeryToken()
+<div class="fill list-header topgrad">
+    <div class="action-row">
+
+        @*<a class="pagetips-title separationline pull-right">
+            <i class="fa fa-lightbulb-o" style="font-size:24px;"></i> Page Tips
+        </a>*@
+
+        @*<div class="btn-toolbar pull-right">
+            <div class="btn-group list-sorter margin_right_5px_">
+                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle top_bottom_padding_5px_">
+                    <svg class="icon text-top" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path fill="#020202" d="M0 96h512v64H0zm0 128h512v64H0zm0 128h512v64H0z"></path></svg>
+                </button>
+                <ul class="dropdown-menu pull-right">
+                    <li class="fltheader">Sort by</li>
+                    <li class="asc sortable active ember-view">
+                        <a>
+                            Name
+                            <span class="sort">
+                                <b class="caret up"></b>
+                                <b class="caret down"></b>
+                            </span>
+                        </a>
+                    </li>
+                    <!----><!---->
+                    <li class="divider"></li>
+                    <li>
+                        <a>
+                            <svg class="icon text-top" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0.5 0.5 512 512"><path d="M448.5 352.5v96h-384v-96H.5v160h512v-160zm-56.25-135.765l-45.254-45.255-58.496 58.496V.5h-64v229.495l-58.515-58.515-45.255 45.255L256.485 352.5l.005-.005.005.005z"></path></svg> Import Items
+                        </a>
+                    </li>
+                    <!---->
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#/settings/preferences/contacts" class="ember-view">
+                            <svg class="icon text-top" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M511.5 277.3v-46.5c0-6.7-4.2-12.7-10.5-15l-41.9-15.2c-4.6-1.7-8.3-5.4-9.7-10.1-3-9.5-6.6-18.7-10.9-27.6-2.2-4.4-2.2-9.5-.1-14l19.8-41.3c2.9-6.1 1.7-13.4-3.1-18.2l-32.6-32.7c-4.8-4.8-12.1-6.1-18.2-3.2L363 73.1c-4.4 2.1-9.5 2-13.9-.1-8.8-4.2-17.9-7.5-27.4-10.4-4.8-1.5-8.6-5.1-10.3-9.8L296.3 11C294 4.7 288 .5 281.3.5h-46.5c-6.7 0-12.7 4.2-15 10.5l-15.2 41.9c-1.7 4.6-5.4 8.3-10.1 9.8-9.5 3-18.8 6.6-27.6 10.9-4.4 2.2-9.6 2.2-14 .1l-41.2-19.9c-6.1-2.9-13.4-1.7-18.2 3.1L60.6 89.5c-4.8 4.8-6.1 12.1-3.1 18.2l19.5 41c2.2 4.6 2.1 9.9-.3 14.3-4.7 8.8-9.1 18-12.5 27.5-1.6 4.6-5.2 8.2-9.8 9.8l-44.2 15.4C3.8 217.9-.5 224-.5 230.8V277c0 6.8 4.3 12.9 10.7 15.1l44.1 15.4c4.6 1.6 8.3 5.3 9.9 9.9 3.3 9.6 7.4 18.8 12 27.7 2.3 4.4 2.3 9.6.2 14.1L57 400.4c-2.9 6.1-1.6 13.4 3.2 18.1l33 32.9c4.8 4.8 12.1 6 18.2 3.1l41.2-19.6c4.5-2.2 9.8-2.1 14.3.3 8.8 4.7 18.1 9.1 27.6 12.5 4.6 1.6 8.2 5.2 9.8 9.8l15.4 44.2c2.2 6.4 8.3 10.7 15.1 10.7H281c6.8 0 12.9-4.3 15.1-10.7l15.4-44.2c1.6-4.6 5.2-8.3 9.9-9.8 9.5-3.3 18.8-7.4 27.7-12 4.4-2.3 9.6-2.3 14.1-.2l41.2 19.4c6.1 2.9 13.4 1.6 18.2-3.2l32.8-33c4.8-4.8 6-12 3.1-18.2L438.8 359c-2.1-4.4-2-9.5.1-13.8 4.2-8.8 7.5-18 10.4-27.5 1.5-4.8 5.1-8.6 9.8-10.3l41.8-15.2c6.4-2.2 10.6-8.2 10.6-14.9zM258 347.9c-51.9 0-93.9-42-93.9-93.9 0-51.8 42-93.9 93.9-93.9 51.8 0 93.9 42.1 93.9 93.9 0 51.9-42 93.9-93.9 93.9z"></path></svg> Contact Preferences
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a><svg class="icon text-top" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path d="M416.86 508.374l-.391-.03c-3.465-.282-6.472-1.794-8.696-4.372-2.263-2.625-3.318-5.868-3.053-9.381l.021-.244 6.319-49.275c-45.27 39.245-103.196 60.846-163.218 60.848-9.81 0-19.72-.591-29.456-1.755-66.002-7.904-124.975-41.041-166.055-93.305C12.578 360.288-5.49 296.032 1.456 229.934c.139-1.312.285-2.623.441-3.936.349-2.959 1.326-5.587 2.99-8.031a18.067 18.067 0 0 1 17.156-7.796c4.8.574 9.09 2.985 12.078 6.788a18.012 18.012 0 0 1 3.774 13.087l-.034.306a242.833 242.833 0 0 0-.375 3.339c-5.959 56.694 9.427 111.662 43.323 154.78 35.098 44.653 85.485 72.966 141.882 79.72a212.909 212.909 0 0 0 25.219 1.506c51.519 0 101.221-18.633 139.95-52.466a204.006 204.006 0 0 0 4.639-4.178l-60.739-1.484-.245-.016c-4.555-.32-8.823-2.306-11.421-5.315-1.838-2.134-2.722-4.765-2.488-7.406l.017-.214.245-5.399.052-.395a14 14 0 0 1 2.288-5.949c2.599-3.832 7.062-6.212 11.646-6.212.193 0 .387.004.58.014l96.404 2.664.384-.027 6.368.316c3.638.165 6.795 1.706 9.127 4.455 2.353 2.697 3.396 6.018 3.061 9.641l-.615 6.357-.089.387-11.673 93.97c-.243 2.213-.945 4.192-2.087 5.871-2.244 3.302-6.005 5.147-10.589 5.199l-.941.01-4.924-1.146zm75.366-211.376c-.72 0-1.449-.043-2.167-.128-9.773-1.176-16.888-10.098-15.858-19.888l.032-.284c.117-1.001.234-2.048.347-3.093 5.812-55.298-9.919-109.838-44.295-153.571-35.082-44.651-85.466-72.966-141.869-79.729a224.756 224.756 0 0 0-26.606-1.601c-20.717 0-41.196 2.976-60.868 8.843-28.5 8.497-54.301 22.714-76.686 42.258a212.966 212.966 0 0 0-14.314 13.704l61.611 1.504.262.016c4.27.33 8.34 2.299 10.902 5.269 2.494 2.893 2.837 5.837 2.686 7.798l-.021.273.067 5-.098.639a14.014 14.014 0 0 1-2.239 5.69c-2.611 3.836-7.074 6.217-11.649 6.217-.196 0-.394-.005-.59-.014l-96.423-2.66-.304.026-6.426-.316c-3.632-.167-6.788-1.706-9.123-4.449-2.351-2.696-3.413-6.044-3.063-9.673l.608-6.322.093-.409L67.91 18.14c.234-2.175 1.033-4.325 2.308-6.202 2.52-3.713 6.667-6.035 11.094-6.213l1.047-.042 5.025 1.162.383.033c2.815.238 5.347 1.572 7.315 3.857 2.485 2.88 3.826 7.206 3.498 11.289l-.031.305-6.088 47.447a247.522 247.522 0 0 1 7.978-7.274c26.222-22.891 56.447-39.57 89.836-49.573 23.133-6.932 47.179-10.447 71.469-10.447 10.23 0 20.652.629 30.975 1.868 65.996 7.901 124.967 41.035 166.05 93.299 40.229 51.188 58.643 114.995 51.847 179.67-.132 1.245-.271 2.48-.42 3.725a18.102 18.102 0 0 1-2.995 8.009 18.104 18.104 0 0 1-14.975 7.945c.001 0 .001 0 0 0z"></path></svg> Refresh List</a></li>
+                </ul>
+            </div>
+        </div>*@
+        <div class="dropdown clearfix list-title ember-view">
+            <a data-toggle="dropdown" class="dropdown-toggle">
+                <!---->  Stock @*<b class="caret"></b>*@
+            </a>
+            @*<ul class="dropdown-menu scrollmenu ">
+                <li> <a>All</a> </li>
+                <li class="divider"></li>
+                <li> <a>Active</a> </li>
+                <li> <a>Inactive</a> </li>
+                
+            </ul>*@
+        </div>
+    </div>
+</div>
+
+<section class="content">
+
+    <div class="box">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box-body bottom_padding_5px_">
+                    <!-- Date dd/mm/yyyy -->
+                    <div class="form-group margin_bottom_5px">
+                        <label>From Date:</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" name="StockStartDate" class="form-control datepicker" value="@DateTime.Now.Date.ToString("dd/MM/yyyy")" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-6">
+                <div class="box-body bottom_padding_5px_">
+                    <!-- Date dd/mm/yyyy -->
+                    <div class="form-group margin_bottom_5px">
+                        <label>To Date:</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" class="form-control datepicker" name="StockEndDate" value="@DateTime.Now.Date.ToString("dd/MM/yyyy")" data-inputmask="'alias' : 'dd/mm/yyyy'" data-mask>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <div class="box-body">
+            <table id="Items_Stocks_list" class="table table-striped table-bordered" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Consumed / Sold</th>
+                        <th>In Stock</th>
+                    </tr>
+                </thead>
+                <tbody id="_tbl_tems_Stocks_Body_"></tbody>
+                <tfoot>
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Consumed / Sold</th>
+                        <th>In Stock</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+    <!-- / Details Of Vendors -->
+</section>

@@ -1,0 +1,155 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_Shared/_LayoutOne.cshtml";
+}
+
+<div class="fill list-header topgrad">
+    <div class="action-row">
+
+        <div class=" clearfix list-title ember-view">
+            <a>
+                <!---->  Reports
+            </a>
+
+        </div>
+    </div>
+</div>
+<section class="content">
+    @Html.AntiForgeryToken()
+    <div class="col-lg-12">
+        <div class="col-lg-4">
+            <div class="box box-primary">
+                <div class="box-header with-border widget-user-header">
+                    <h3 class="box-title">Inventory</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <!-- Widget: user widget style 1 -->
+                    <div class="box box-widget widget-user-2">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+
+                        <div class="box-footer no-padding">
+                            <ul class="nav nav-stacked">
+                                <li><a href="@Url.Action("Inventory_ProductSalesReport", "Reports")"> <i class="fa fa-fw fa-chevron-right"></i> Product Sales Report</a></li>
+                                <li><a href="@Url.Action("Inventory_InventoryDetailsReport", "Reports")"> <i class="fa fa-fw fa-chevron-right"></i> Inventory Details</a></li>
+                                <li><a href="@Url.Action("Inventory_InventoryValuationSummaryReport", "Reports")"> <i class="fa fa-fw fa-chevron-right"></i> Inventory Valuation Summary</a></li>
+                                <li><a href="@Url.Action("Inventory_StockSummaryReport", "Reports")"> <i class="fa fa-fw fa-chevron-right"></i> Stock Summary</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.widget-user -->
+                    <!-- /.col -->
+                    <!-- /.row -->
+                </div>
+                <!-- /.box-body -->
+
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="box box-primary">
+                <div class="box-header with-border widget-user-header">
+                    <h3 class="box-title">Sales</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <!-- Widget: user widget style 1 -->
+                    <div class="box box-widget widget-user-2">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+
+                        <div class="box-footer no-padding">
+                            <ul class="nav nav-stacked">
+                                <li><a href="@Url.Action("Sales_SalesOrderHistoryReport", "Reports")"><i class="fa fa-fw fa-chevron-right"></i> Sales Order History</a></li>
+                                <li><a href="@Url.Action("Sales_OrderFulfillmentByItemReport", "Reports")"><i class="fa fa-fw fa-chevron-right"></i> Order Fulfillment By Item</a></li>
+                                <li><a href="@Url.Action("Sales_InvoiceHistoryReport", "Reports")"><i class="fa fa-fw fa-chevron-right"></i> Invoice History</a></li>
+                                <li><a href="@Url.Action("Sales_PaymentsReceivedReport", "Reports")"><i class="fa fa-fw fa-chevron-right"></i> Payments Received</a></li>
+                                <li><a href="@Url.Action("Sales_PackingHistoryReport", "Reports")"><i class="fa fa-fw fa-chevron-right"></i> Packing History</a></li>
+                                <li><a href="@Url.Action("Sales_SalesByCustomerReport", "Reports")"><i class="fa fa-fw fa-chevron-right"></i> Sales by Customer</a></li>
+                                <li><a href="@Url.Action("Sales_SalesByItemReport", "Reports")"><i class="fa fa-fw fa-chevron-right"></i> Sales by Item</a></li>
+                                <li><a href="@Url.Action("Sales_SalesBySalesPersonReport", "Reports")"><i class="fa fa-fw fa-chevron-right"></i> Sales by Salesperson</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.widget-user -->
+                    <!-- /.col -->
+                    <!-- /.row -->
+                </div>
+                <!-- /.box-body -->
+
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="box box-primary">
+                <div class="box-header with-border widget-user-header">
+                    <h3 class="box-title">Purchases</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <!-- Widget: user widget style 1 -->
+                    <div class="box box-widget widget-user-2">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+
+                        <div class="box-footer no-padding">
+                            <ul class="nav nav-stacked">
+                                <li><a href="@Url.Action("Purchases_PurchaseOrderHistoryReport", "Reports")"><i class="fa fa-fw fa-chevron-right"></i> Purchase Order History</a></li>
+                                <li><a href="@Url.Action("Purchases_PurchaseByVendorReport", "Reports")"><i class="fa fa-fw fa-chevron-right"></i> Purchase by Vendor</a></li>
+                                <li><a href="@Url.Action("Purchases_PurchaseByItemReport", "Reports")"><i class="fa fa-fw fa-chevron-right"></i> Purchases by Item</a></li>
+                                <li><a href="@Url.Action("Purchases_BillDetailsReport", "Reports")"><i class="fa fa-fw fa-chevron-right"></i> Bill Details</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.widget-user -->
+                    <!-- /.col -->
+                    <!-- /.row -->
+                </div>
+                <!-- /.box-body -->
+
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="col-lg-4">
+            <div class="box box-primary">
+                <div class="box-header with-border widget-user-header">
+                    <h3 class="box-title">Activity</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <!-- Widget: user widget style 1 -->
+                    <div class="box box-widget widget-user-2">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+
+                        <div class="box-footer no-padding">
+                            <ul class="nav nav-stacked">
+                                <li><a href="@Url.Action("ActivityLogsReport", "Reports")"><i class="fa fa-fw fa-chevron-right"></i> Activity Logs</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.widget-user -->
+                    <!-- /.col -->
+                    <!-- /.row -->
+                </div>
+                <!-- /.box-body -->
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+

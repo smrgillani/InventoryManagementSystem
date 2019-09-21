@@ -1,0 +1,152 @@
+﻿@using G_Accounting_System.Models
+@model Company
+<div class="box box-default">
+    <div class="box-header with-border">
+        <h3 class="box-title">@(Model == null ? "Add New Company" : "Update Company Info")</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool _Add_New_Company_Form_Remover_"><i class="fa fa-remove"></i></button>
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div class="nav-tabs-custom box_shadow_none">
+            <!-- Tabs within a box -->
+            <ul class="nav nav-tabs nav_tabs_for_new_company nav_tabs_new_custom_bg">
+                <li class="active"><a href="#co-general-dtls" data-toggle="tab">General Details</a></li>
+                <li><a href="#co-address-dtls" data-toggle="tab">Address Details</a></li>
+                <li><a href="#co-payment-dtls" data-toggle="tab">Payment Details</a></li>
+                @*<li class="pull-right header"><i class="fa fa-inbox"></i> Sales</li>*@
+            </ul>
+
+            <input type="hidden" name="companies_id" value="@(Model != null ? Model.id : 0)" />
+
+            <div class="tab-content no-padding">
+                <!-- Morris chart - Sales -->
+                <div class="chart tab-pane active" id="co-general-dtls" style="position: relative; height: auto;">
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label>Company Name : <span style="color:red">*</span></label>
+                                    <input type="text" class="form-control" tabindex="1" value="@(Model != null ? Model.Name : "")" name="Full_name">
+                                </div>
+                            </div>
+                            <!-- /.form-group -->
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label>Contact Phone (Mobile) : <span style="color:red">*</span></label>
+                                    <input type="number" class="form-control" tabindex="3" name="Contact_phone_mobile" value="@(Model != null ? Model.Mobile : "")">
+                                </div>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Contact Phone (Landline) : <span style="color:red">*</span></label>
+                                <input type="number" class="form-control" tabindex="2" name="Contact_phone_landline" value="@(Model != null ? Model.Landline : "")">
+                            </div>
+                            <!-- /.form-group -->
+                            <div class="form-group">
+                                <label>Contact Email : </label>
+                                <input type="text" class="form-control" tabindex="4" name="Contact_email" value="@(Model != null ? Model.Email: "")">
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                    </div>
+                    <!-- /.row -->
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label>Website : </label>
+                                <input type="text" class="form-control" tabindex="5" name="Website" value="@(Model != null ? Model.Website : "")">
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+
+                </div>
+                <div class="chart tab-pane" id="co-address-dtls" style="position: relative; height: auto;">
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Address : <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" tabindex="6" name="Address" value="@(Model != null ? Model.Address : "")">
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label>Country : <span style="color:red">*</span></label>
+                                <select class="form-control select2 CountryDrodown" style="width:100%;" tabindex="7" name="get_Address_country" id="Address_country"></select>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>City : <span style="color:red">*</span></label>
+                                <select class="form-control select2 CityDropdown" style="width:100%;" tabindex="8" name="get_Address_city" id="Address_city"></select>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </div>
+                <div class="chart tab-pane" id="co-payment-dtls" style="position: relative; height: auto;">
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Bank A/C Number : </label>
+                                <input type="text" class="form-control" tabindex="9" name="Bank_account_number" value="@(Model != null ? Model.BankAccountNumber : "")">
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-6">
+                            <label>Payment Method : </label>
+                            <select class="form-control select2" style="width:100%;" tabindex="10" name="Payment_method">
+                                <option value="1" @(Model != null ? (Model.PaymentMethod.Equals("1")) ? "Selected" : "" : "")>Cheque</option>
+                                <option value="2" @(Model != null ? (Model.PaymentMethod.Equals("2")) ? "Selected" : "" : "")>Cash</option>
+                                <option value="3" @(Model != null ? (Model.PaymentMethod.Equals("3")) ? "Selected" : "" : "")>Card</option>
+                            </select>
+                            <!-- /.form-group -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Status : </label>
+                            <select class="form-control select2" style="width:100%;" tabindex="11" name="C_Status">
+                                <option value="1" @(Model != null ? (Model.IsEnabled.Equals("1")) ? "Selected" : "" : "")>Active</option>
+                                <option value="0" @(Model != null ? (Model.IsEnabled.Equals("0")) ? "Selected" : "" : "")>Inactive</option>
+                            </select>
+                            <!-- /.form-group -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- /.row -->
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+        <button class="btn btn-default _Add_New_Company_Form_Remover__" tabindex="13">Cancel</button>
+        <button id="_Add_New_Company_Form_Save_" tabindex="12" class="btn btn-info pull-right">Next</button>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Resources/js/Admin/CompanyI.js")"></script>

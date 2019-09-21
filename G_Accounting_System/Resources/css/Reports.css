@@ -1,0 +1,10 @@
+﻿@media print {
+    .dataTables_length, .dataTables_filter, .dt-buttons, .dataTables_paginate, .paging_simple_numbers, .dataTables_info {
+        display: none;
+    }
+}
+@media pdf {
+    .dataTables_length, .dataTables_filter, .dt-buttons, .dataTables_paginate, .paging_simple_numbers, .dataTables_info {
+        display: none;
+    }
+}

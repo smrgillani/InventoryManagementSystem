@@ -1,0 +1,64 @@
+﻿<div class="row">
+    <div class="col-md-3">
+
+        <div class="form-group">
+            <label>Sales Order No : </label>
+            <input type="text" class="form-control" tabindex="1" name="ShpsalesorderNo" readonly>
+
+            <!-- /.form-group -->
+        </div>
+        <!-- /.col -->
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="form-group">
+            <label>Carrier </label>
+            <select class="form-control select2" id="get_Shipment_carrier" style="width:100%;" tabindex="2" name="new_shipping_Carrier"></select>
+
+            <!-- /.form-group -->
+        </div>
+        <!-- /.col -->
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="form-group">
+            <label>Shipping Date : </label>
+            <input type="text" class="form-control" tabindex="3" name="ShimentDate" value="@DateTime.Now.Date.ToString("dd/MM/yyyy")">
+
+            <!-- /.form-group -->
+        </div>
+        <!-- /.col -->
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="form-group">
+            <label>Shipping Charges (if any) </label>
+            <input type="number" class="form-control" tabindex="4" value="0" name="Shipmentcharges">
+
+            <!-- /.form-group -->
+        </div>
+        <!-- /.col -->
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+
+        <table id="tblShipPackageList" class="table table-bordered nowrap" cellspacing="0">
+            <thead>
+                <tr>
+                    <th style="text-align:center"><input type="checkbox" class="checkAllPackages" onchange="checkAllPackages();" id="chkSelectAllItemsPkg" /></th>
+                    <th style="text-align:left">Package No</th>
+                </tr>
+            </thead>
+            <tbody id="ShipPackagelistbody"></tbody>
+        </table>
+
+    </div>
+</div>
+
+
+<script src="@Url.Content("~/Resources/js/Admin/PurchaseI.js")"></script>
+

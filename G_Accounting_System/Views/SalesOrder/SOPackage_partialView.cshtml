@@ -1,0 +1,54 @@
+﻿
+<div class="row">
+    <div class="col-md-3">
+
+        <div class="form-group">
+            <label>Sales Order No : </label>
+            <input type="text" class="form-control" tabindex="1" name="PkgsalesorderNo" readonly>
+
+            <!-- /.form-group -->
+        </div>
+        <!-- /.col -->
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="form-group">
+            <label>Packing Cost (if Any) : </label>
+            <input type="number" class="form-control" tabindex="2" value="0" name="Packagingcost">
+
+            <!-- /.form-group -->
+        </div>
+        <!-- /.col -->
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="form-group">
+            <label> Date : </label>
+            <input type="text" class="form-control" tabindex="3" name="PkginvoiceDate" value="@DateTime.Now.Date.ToString("dd/MM/yyyy")">
+
+            <!-- /.form-group -->
+        </div>
+        <!-- /.col -->
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+
+        <table id="tblPkgitemList" class="table table-bordered nowrap" cellspacing="0">
+            <thead>
+                <tr>
+                    <th style="text-align:center"><input type="checkbox" class="checkAll" onchange="checkAllItems();" id="chkSelectAllItemsPkg"/></th>
+                    <th style="text-align:center">Item Name</th>
+                    <th style="text-align:center">Quantity Ordered</th>
+                    <th style="text-align:center">Quantity to Pack</th>
+                </tr>
+            </thead>
+            <tbody id="Pkgitemslistbody"></tbody>
+        </table>
+
+    </div>
+</div>
+
+

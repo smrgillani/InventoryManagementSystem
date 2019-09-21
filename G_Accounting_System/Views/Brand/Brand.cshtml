@@ -1,0 +1,53 @@
+﻿<div class="box-header with-border">
+    <h3 class="box-title">Add New Brand</h3>
+    <div class="box-tools pull-right">
+        @*<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>*@
+        <button type="button" class="btn btn-box-tool" id="_Add_New_Brand_Form_Remover_"><i class="fa fa-remove"></i></button>
+    </div>
+</div>
+<!-- /.box-header -->
+<div class="box-body">
+    <div class="nav-tabs-custom box_shadow_none">
+        <!-- Tabs within a box -->
+        <ul class="nav nav-tabs nav_tabs_for_new_Brand nav_tabs_new_custom_bg">
+            <li class="active"><a href="#v-general-dtls" data-toggle="tab">Brand Details</a></li>
+            @*<li class="pull-right header"><i class="fa fa-inbox"></i> Sales</li>*@
+        </ul>
+        @Html.AntiForgeryToken()
+        <div class="tab-content no-padding">
+            <!-- Morris chart - Sales -->
+            <input type="hidden" name="brandid" value="0" />
+            <div class="chart tab-pane active" id="v-general-dtls" style="position: relative; height: auto;">
+                <br />
+                <div class="row">
+                </div>
+                <!-- /.row -->
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Brand Name : <span style="color:red">*</span></label>
+                            <input type="text" class="form-control" tabindex="1" name="brand_Name">
+                        </div>
+                    </div>
+
+                    <!-- /.col -->
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <!-- /.row -->
+</div>
+<!-- /.box-body -->
+<div class="box-footer">
+    <button id="_Add_New_Brand_Form_Remover__" tabindex="3" class="btn btn-default">Cancel</button>
+    <button id="_Add_New_Brand_Form_Save_" tabindex="2" class="btn btn-info pull-right">Save</button>
+</div>
+
+<script src="@Url.Content("~/Resources/js/Admin/BrandI.js")"></script>

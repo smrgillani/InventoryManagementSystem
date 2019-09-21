@@ -1,0 +1,125 @@
+﻿@using G_Accounting_System.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_Shared/_LayoutOne.cshtml";
+}
+
+@Html.AntiForgeryToken()
+
+<!-- Main content -->
+<section class="content">
+    <div class="alert alert-success alert-dismissible" id="_Success_Message_Display_" style="display:none;">
+        <h4><i class="icon fa fa-check"></i> Message !</h4> <span></span>
+    </div>
+
+
+
+    <div class="alert alert-danger alert-dismissible" id="_Error_Message_Display_" style="display:none;">
+        <button type="button" class="close" id="_Error_Message_Display_Btn_">×</button>
+        <h4><i class="icon fa fa-ban"></i> Alert!</h4> <span></span>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+
+            <!-- Profile Image -->
+            <div class="box box-primary">
+                <div class="box-body box-profile padding_bottom_none">
+
+                    <img class="profile-user-img img-responsive img-circle" src="~/Resources/dist/img/usericon.jpg" alt="User profile picture">
+                    <h3 class="profile-username text-center" id="cp__user_name"></h3>
+                    <p class="text-muted text-center" id="cp__user_email"></p>
+                    <ul class="list-group list-group-unbordered"></ul>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+            <!-- Personal information Box -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Users</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <input type="search" class="form-control input-sm searchUser" placeholder="Search User">
+                <!-- /.box-header -->
+                <div class="box-body" style="height:500px; overflow-y:auto">
+
+                    <ul class="contacts-list AllUserlist"></ul>
+                </div>
+                <!-- /.box-body -->
+            </div>
+
+
+        </div>
+        <!-- /.col -->
+        <div class="col-lg-6">
+            <div class="box box-warning direct-chat direct-chat-warning chatBoxHeight">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Messages</h3>
+
+                    <div class="box-tools pull-right">
+                        @*<span data-toggle="tooltip" title="" class="badge bg-yellow" data-original-title="3 New Messages">3</span>*@
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-toggle="tooltip" id="_DeleteChat_" title="Delete this Chat">
+                            <i class="fa fa-trash"></i>
+                        </button>
+
+                        <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Contacts"
+                                data-widget="chat-pane-toggle">
+                            <i class="fa fa-comments"></i>
+                        </button>
+                        @*<button type="button" class="btn btn-box-tool" data-widget="remove">
+                                <i class="fa fa-times"></i>
+                            </button>*@
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <!-- Conversations are loaded here -->
+                    <div class="direct-chat-messages chatCommentHeight" style="overflow-y:auto">
+
+
+                        @*<div class="direct-chat-msg sender">
+
+                            </div>
+
+                            <div class="direct-chat-msg right receiver">
+
+                            </div>*@
+                    </div>
+                    <!-- Contacts are loaded here -->
+                    <div class="direct-chat-contacts">
+
+                        <ul class="contacts-list AllUserlist"></ul>
+                        <!-- /.contatcts-list -->
+                    </div>
+                    <!-- /.direct-chat-pane -->
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    <form action="#" method="post">
+                        <div class="input-group">
+                            <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-warning btn-flat SendMessage">Send</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.box-footer-->
+            </div>
+
+
+
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->

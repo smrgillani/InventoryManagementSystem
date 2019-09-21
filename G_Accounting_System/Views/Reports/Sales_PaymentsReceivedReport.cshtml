@@ -1,0 +1,158 @@
+﻿
+@{
+    ViewBag.Title = "Sales_PaymentsReceivedReport";
+    Layout = "~/Views/_Shared/_LayoutOne.cshtml";
+}
+
+<div class="fill list-header topgrad">
+    <div class="action-row">
+
+        <div class="btn-toolbar pull-right">
+            <button class="btn btn-primary-add-new btn-sm-add-new" id="_Customize_Report_btn_">
+                <i class="fa fa-fw fa-gear font_size_14px_"></i> <span> Customize Report </span>
+            </button>
+        </div>
+        <div class="dropdown clearfix list-title ember-view">
+            <a data-toggle="dropdown" class="dropdown-toggle">
+                <!---->  Reports
+            </a>
+
+        </div>
+    </div>
+</div>
+<section class="content">
+
+    <div class="alert alert-success alert-dismissible" id="_Success_Message_Display_" style="display:none;">
+        <h4><i class="icon fa fa-check"></i> Message !</h4> <span></span>
+    </div>
+
+
+
+    <div class="alert alert-danger alert-dismissible" id="_Error_Message_Display_" style="display:none;">
+        <button type="button" class="close" id="_Error_Message_Display_Btn_">×</button>
+        <h4><i class="icon fa fa-ban"></i> Alert!</h4> <span></span>
+    </div>
+
+
+    <!-- Add New Brand Form Box -->
+    @Html.AntiForgeryToken()
+
+    <div class="box box-default _Customize_Report_Form_" style="display:none;">
+        <div class="box-header with-border">
+            <h3 class="box-title">Customize</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" id="_Add_Customize_Report_Remover_"><i class="fa fa-remove"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="box-body bottom_padding_5px_">
+                        <div class="form-group margin_bottom_5px">
+                            <label>Date Range:</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <select class="form-control select2" style="width:100%;" tabindex="3" name="Date_Range">
+                                    <option>Today</option>
+                                    <option>This Week</option>
+                                    <option selected="selected">This Month</option>
+                                    <option>This Year</option>
+                                    <option>Custom</option>
+                                </select>
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                        <!-- /.form group -->
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <div class="col-md-4">
+                    <div class="box-body bottom_padding_5px_">
+                        <!-- Date dd/mm/yyyy -->
+                        <div class="form-group margin_bottom_5px">
+                            <label>From Date:</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" name="FromDate" class="form-control datepicker" id="From_Date" value="">
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                        <!-- /.form group -->
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-4">
+                    <div class="box-body bottom_padding_5px_">
+                        <!-- Date dd/mm/yyyy -->
+                        <div class="form-group margin_bottom_5px">
+                            <label>To Date:</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control datepicker" name="ToDate" id="To_Date" value="">
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                        <!-- /.form group -->
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.col -->
+            </div>
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <button id="_Add_Customize_Report_Remover__" class="btn btn-default">Cancel</button>
+            <button id="_Run_Report_PRR" class="btn btn-info pull-right">Run Report</button>
+        </div>
+    </div>
+    <div class="repo">
+        <div class="fc-toolbar">
+            <div class="fc-center">
+                <h2 id="tit">Inventory Details</h2>
+                <h4 id="reporttype"></h4>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-body">
+                <table id="tbl_PaymentsReceivedReport" class="table table-striped table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>PAYMENT #</th>
+                            <th>DATE</th>
+                            <th>CUSTOMER NAME</th>
+                            <th>PAYMENT METHOD</th>
+                            <th>INVOICE #</th>
+                            <th>AMOUNT</th>
+                        </tr>
+                    </thead>
+                    <tbody id="_tbl_PaymentsReceivedReport_Body_"></tbody>
+                    <tfoot class="bg-info">
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+</section>
+
+
+
+
+
+

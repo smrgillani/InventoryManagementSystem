@@ -1,0 +1,96 @@
+﻿<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Customer Name </label>
+            <input type="text" class="form-control" tabindex="1" name="customerName" readonly />
+        </div>
+        <!-- /.form-group -->
+    </div>
+    <div class="col-md-3">
+
+        <div class="form-group">
+            <label>Sales Order No : </label>
+            <input type="text" class="form-control" tabindex="3" name="BsalesorderNo" readonly>
+
+            <!-- /.form-group -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <div class="col-md-3">
+
+        <div class="form-group">
+            <label>Invoice No : <span style="color:red">*</span></label>
+            <input type="text" class="form-control" tabindex="2" name="BinvoiceNo">
+
+            <!-- /.form-group -->
+        </div>
+        <!-- /.col -->
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="form-group">
+            <label>Invoice Date : </label>
+            <input type="text" class="form-control" tabindex="4" name="BinvoiceDate" value="@DateTime.Now.Date.ToString("dd/MM/yyyy")">
+
+            <!-- /.form-group -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <div class="col-md-3">
+
+        <div class="form-group">
+            <label>Due Date : </label>
+            <input type="text" class="form-control" tabindex="5" name="BinoicedueDate" value="@DateTime.Now.Date.ToString("dd/MM/yyyy")">
+
+            <!-- /.form-group -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <input type="hidden" id="recdate" />
+</div>
+<div class="row">
+    <div class="col-md-12">
+
+        <table id="tblBitemList" class="table table-bordered nowrap" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Qty</th>
+                    <th>Item Name</th>
+                    <th>Price</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody id="Bitemslistbody"></tbody>
+        </table>
+
+    </div>
+</div>
+<div class="row">
+    <!-- accepted payments column -->
+    <div class="col-xs-6">
+
+    </div>
+    <!-- /.col -->
+    <div class="col-xs-6">
+
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th style="width:43%">Subtotal:</th>
+                    <td id="Bsubtotal"></td>
+                </tr>
+                <tr>
+                    <th>Total:</th>
+                    <td id="Btotal"></td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+    <!-- /.col -->
+
+</div>
+
+<script src="@Url.Content("~/Resources/js/Admin/PurchaseI.js")"></script>
+

@@ -1,0 +1,83 @@
+﻿@*@using G_Accounting_System.Models
+<div class="box box-warning direct-chat direct-chat-warning chatBoxHeight">
+    <div class="box-header with-border">
+        <h3 class="box-title">Messages</h3>
+
+        <div class="box-tools pull-right">
+            <span data-toggle="tooltip" title="" class="badge bg-yellow" data-original-title="3 New Messages">3</span>
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" data-widget="chat-pane-toggle" data-original-title="Contacts">
+                <i class="fa fa-comments"></i>
+            </button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <!-- Conversations are loaded here -->
+        <div class="direct-chat-messages chatCommentHeight">
+            @{
+                List<Message> messages = new List<Message>();
+
+                if (Session["Messages"] != null)
+                {
+                    messages = new List<Message>((List<Message>)Session["Messages"]);
+                }
+                foreach (var i in messages)
+                {
+                    if (messages.Count != 0)
+                    {
+                        if (i.SenderMessage != "" || i.SenderMessage != null)
+                        {
+                            <div class="direct-chat-msg ">
+                                <div class="direct-chat-info clearfix">
+                                    <span class="direct-chat-name pull-left">@i.SenderName</span>
+                                    <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
+                                </div>
+                                <!-- /.direct-chat-info -->
+                                <img class="direct-chat-img" src="@Url.Content("~/Resources/dist/img/user1-128x128.jpg")" alt="message user image">
+                                <!-- /.direct-chat-img -->
+                                <div class="direct-chat-text">
+                                    @i.SenderMessage
+                                </div>
+                                <!-- /.direct-chat-text -->
+                            </div>
+                        }
+                        if (i.SenderMessage != "" || i.SenderMessage != null)
+                        {
+                        <div class="direct-chat-msg right">
+                            <div class="direct-chat-info clearfix">
+                                <span class="direct-chat-name pull-right">@i.ReceiverName</span>
+                                <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
+                            </div>
+                            <!-- /.direct-chat-info -->
+                            <img class="direct-chat-img" src="@Url.Content("~/Resources/dist/img/user3-128x128.jpg")" alt="message user image">
+                            <!-- /.direct-chat-img -->
+                            <div class="direct-chat-text">
+                                @i.ReceiverMessage
+                            </div>
+                            <!-- /.direct-chat-text -->
+                        </div>
+                        }
+                    }
+                }
+            }
+
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <form action="#" method="post">
+                <div class="input-group">
+                    <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-warning btn-flat">Send</button>
+                    </span>
+                </div>
+            </form>
+        </div>
+        <!-- /.box-footer-->
+    </div>*@

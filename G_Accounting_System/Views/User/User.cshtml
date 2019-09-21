@@ -1,0 +1,449 @@
+﻿@using G_Accounting_System.Models
+@model Classes
+
+<div class="box box-default _Add_New_User_Form_">
+    <div class="box-header with-border">
+        <h3 class="box-title">@(Model.User == null ? "Add New User " : "Update User Info")</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool _Add_New_User_Form_Remover_"><i class="fa fa-remove"></i></button>
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div class="nav-tabs-custom box_shadow_none">
+            <!-- Tabs within a box -->
+            <ul class="nav nav-tabs nav_tabs_for_new_item nav_tabs_new_custom_bg">
+                <li class="active"><a href="#v-general-dtls" data-toggle="tab">General Details</a></li>
+                @*<li class="pull-right header"><i class="fa fa-inbox"></i> Sales</li>*@
+            </ul>
+            <div class="tab-content no-padding">
+                <input type="hidden" value="@(Model.User == null ? "" : Model.User.id.ToString())" name="users_id" />
+                <!-- Morris chart - Sales -->
+                <input id="userid" type="hidden" value="0" />
+                <div class="chart tab-pane active" id="v-general-dtls" style="position: relative; height: auto;">
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Email : <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" value="@(Model.User == null ? "" : Model.User.email)" tabindex="1" name="users_email">
+                            </div>
+                            <div class="form-group">
+                                <label>Premises : <span style="color:red">*</span></label>
+                                <select class="form-control select2" style="width:100%;" tabindex="3" name="users_premises">
+                                    @{
+                                        if (Model.Offices != null)
+                                        {
+                                            <optgroup label="Offices">
+                                                @foreach (var dbr in Model.Offices)
+                                                {
+                                                    <option value="@dbr.id" @(Model.User == null ? "" : Model.User.Premises_id.Equals(dbr.id.ToString()) ? "selected" : "")>@dbr.Name</option>
+                                                }
+                                            </optgroup>
+                                        }
+
+                                        if (Model.Factories != null)
+                                        {
+                                            <optgroup label="Factories">
+                                                @foreach (var dbr in Model.Factories)
+                                                {
+                                                    <option value="@dbr.id" @(Model.User == null ? "" : Model.User.Premises_id.Equals(dbr.id.ToString()) ? "selected" : "")>@dbr.Name</option>
+                                                }
+                                            </optgroup>
+                                        }
+
+                                        if (Model.Shops != null)
+                                        {
+                                            <optgroup label="Shops">
+                                                @foreach (var dbr in Model.Shops)
+                                                {
+                                                    <option value="@dbr.id" @(Model.User == null ? "" : Model.User.Premises_id.Equals(dbr.id.ToString()) ? "selected" : "")>@dbr.Name</option>
+                                                }
+                                            </optgroup>
+                                        }
+
+                                        if (Model.Stores != null)
+                                        {
+                                            <optgroup label="Stores">
+                                                @foreach (var dbr in Model.Stores)
+                                                {
+                                                    <option value="@dbr.id" @(Model.User == null ? "" : Model.User.Premises_id.Equals(dbr.id.ToString()) ? "selected" : "")>@dbr.Name</option>
+                                                }
+                                            </optgroup>
+                                        }
+
+                                    }
+                                </select>
+                            </div>
+
+
+                            <!-- /.form-group -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Password : <span style="color:red">*</span></label>
+                                <input type="password" class="form-control" value="@(Model.User == null ? "" : Model.User.password)" tabindex="2" name="users_password">
+                            </div>
+                            <!-- /.form-group -->
+                            <div class="form-group">
+                                <label>Employees / Vendors / Customers Profile : <span style="color:red">*</span></label>
+                                <select class="form-control select2" style="width:100%;" tabindex="4" name="users_attached_profile">
+
+                                    @{
+                                        if (Model.Employees != null)
+                                        {
+                                            <optgroup label="Employees">
+                                                @foreach (var dbr in Model.Employees)
+                                                {
+                                                    <option value="@dbr.id" @(Model.User == null ? "" : Model.User.attached_profile.Equals(dbr.id.ToString()) ? "selected" : "")>@dbr.Salutation @dbr.Name</option>
+                                                }
+                                            </optgroup>
+                                        }
+
+                                        if (Model.Vendors != null)
+                                        {
+                                            <optgroup label="Vendors">
+                                                @foreach (var dbr in Model.Vendors)
+                                                {
+                                                    <option value="@dbr.id" @(Model.User == null ? "" : Model.User.attached_profile.Equals(dbr.id.ToString()) ? "selected" : "")>@dbr.Salutation @dbr.Name</option>
+                                                }
+                                            </optgroup>
+                                        }
+
+                                        if (Model.Customers != null)
+                                        {
+                                            <optgroup label="Customers">
+                                                @foreach (var dbr in Model.Customers)
+                                                {
+                                                    <option value="@dbr.id" @(Model.User == null ? "" : Model.User.attached_profile.Equals(dbr.id.ToString()) ? "selected" : "")>@dbr.Salutation @dbr.Name</option>
+                                                }
+                                            </optgroup>
+                                        }
+                                    }
+
+                                </select>
+                            </div>
+                            <!-- /.form-group -->
+                            <!-- /.form-group -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Role : <span style="color:red">*</span></label>
+                                <select class="form-control select2 RolesDropdown" style="width:100%;" tabindex="5" id="get_users_role" name="users_role"></select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Status : </label>
+                                <select class="form-control select2" style="width:100%;" tabindex="5" name="users_status">
+                                    <option value="1" @(Model.User == null ? "" : Model.User.status.Equals("1") ? "selected" : "")>Active</option>
+                                    <option value="0" @(Model.User == null ? "" : Model.User.status.Equals("0") ? "selected" : "")>Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                    @*<div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Permissions : </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="users_sal">
+                                    <input type="checkbox" id="users_sal" class="minimal" name="users_sal" @(Model.User == null ? "" : Model.User.CountP == 65 ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Select All </span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pao" @(Model.User == null ? "" : Model.User.pao ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Add Office </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_paf" @(Model.User == null ? "" : Model.User.paf ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Add Factory </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pas" @(Model.User == null ? "" : Model.User.pas ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Add Store </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pas_" @(Model.User == null ? "" : Model.User.pas_ ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Add Shop </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pav" @(Model.User == null ? "" : Model.User.pav ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Add Vendor </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pap" @(Model.User == null ? "" : Model.User.pap ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Add Purchase </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pac" @(Model.User == null ? "" : Model.User.pac ? "checked" : "")>
+                                    <span class="Icheck_Box_Text">  Add Customer </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pas__" @(Model.User == null ? "" : Model.User.pas__ ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Add Sale </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pae" @(Model.User == null ? "" : Model.User.pae ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Add Employee </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pap_" @(Model.User == null ? "" : Model.User.pap_ ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Add Payroll </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pai" @(Model.User == null ? "" : Model.User.pai ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Add Item </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pas___" @(Model.User == null ? "" : Model.User.pas___ ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Add Stock </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pau" @(Model.User == null ? "" : Model.User.pau ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Add User </span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_puo" @(Model.User == null ? "" : Model.User.puo ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Update Office </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_puf" @(Model.User == null ? "" : Model.User.puf ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Update Factory </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pus" @(Model.User == null ? "" : Model.User.pus ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Update Store </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pus_" @(Model.User == null ? "" : Model.User.pus_ ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Update Shop </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_puv" @(Model.User == null ? "" : Model.User.puv ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Update Vendor </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pup" @(Model.User == null ? "" : Model.User.pup ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Update Purchase </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_puc" @(Model.User == null ? "" : Model.User.puc ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Update Customer </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pus__" @(Model.User == null ? "" : Model.User.pus__ ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Update Sale </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pue" @(Model.User == null ? "" : Model.User.pue ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Update Employee </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pup_" @(Model.User == null ? "" : Model.User.pup_ ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Update Payroll </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pui" @(Model.User == null ? "" : Model.User.pui ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Update Item </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pus___" @(Model.User == null ? "" : Model.User.pus___ ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Update Stock </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_puu" @(Model.User == null ? "" : Model.User.puu ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Update User </span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pdo" @(Model.User == null ? "" : Model.User.pdo ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Delete Office </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pdf" @(Model.User == null ? "" : Model.User.pdf ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Delete Factory </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pds" @(Model.User == null ? "" : Model.User.pds ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Delete Store </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pds_" @(Model.User == null ? "" : Model.User.pds_ ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Delete Shop </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pdv" @(Model.User == null ? "" : Model.User.pdv ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Delete Vendor </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pdp" @(Model.User == null ? "" : Model.User.pdp ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Delete Purchase </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pdc" @(Model.User == null ? "" : Model.User.pdc ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Delete Customer </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pds__" @(Model.User == null ? "" : Model.User.pds__ ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Delete Sale </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pde" @(Model.User == null ? "" : Model.User.pde ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Delete Employee </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pdp_" @(Model.User == null ? "" : Model.User.pdp_ ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Delete Payroll </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pdi" @(Model.User == null ? "" : Model.User.pdi ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Delete Item </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pds___" @(Model.User == null ? "" : Model.User.pds___ ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Delete Stock </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pdu" @(Model.User == null ? "" : Model.User.pdu ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> Delete User </span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pvo" @(Model.User == null ? "" : Model.User.pvo ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View Office </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pvf" @(Model.User == null ? "" : Model.User.pvf ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View Factory </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pvs" @(Model.User == null ? "" : Model.User.pvs ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View Store </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pvs_" @(Model.User == null ? "" : Model.User.pvs_ ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View Shop </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pvv" @(Model.User == null ? "" : Model.User.pvv ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View Vendor </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pvp" @(Model.User == null ? "" : Model.User.pvp ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View Purchase </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pvc" @(Model.User == null ? "" : Model.User.pvc ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View Customer </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pvs__" @(Model.User == null ? "" : Model.User.pvs__ ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View Sale </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pve" @(Model.User == null ? "" : Model.User.pve ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View Employee </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pvp_" @(Model.User == null ? "" : Model.User.pvp_ ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View Payroll </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pvi" @(Model.User == null ? "" : Model.User.pvi ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View Item </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pvs___" @(Model.User == null ? "" : Model.User.pvs___ ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View Stock </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pvu" @(Model.User == null ? "" : Model.User.pvu ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View User </span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pvol" @(Model.User == null ? "" : Model.User.pvol ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View Office List </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pvfl" @(Model.User == null ? "" : Model.User.pvfl ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View Factory List </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pvsl" @(Model.User == null ? "" : Model.User.pvsl ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View Store List </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pvsl_" @(Model.User == null ? "" : Model.User.pvsl_ ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View Shop List </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pvvl" @(Model.User == null ? "" : Model.User.pvvl ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View Vendor List </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pvpl" @(Model.User == null ? "" : Model.User.pvpl ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View Purchase List </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pvcl" @(Model.User == null ? "" : Model.User.pvcl ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View Customer List </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pvsl__" @(Model.User == null ? "" : Model.User.pvsl__ ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View Sale List </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pvel" @(Model.User == null ? "" : Model.User.pvel ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View Employee List </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pvpl_" @(Model.User == null ? "" : Model.User.pvpl_ ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View Payroll List </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pvil" @(Model.User == null ? "" : Model.User.pvil ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View Item List </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pvsl___" @(Model.User == null ? "" : Model.User.pvsl___ ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View Stock List </span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" class="minimal" name="users_pvul" @(Model.User == null ? "" : Model.User.pvul ? "checked" : "")>
+                                    <span class="Icheck_Box_Text"> View User List </span>
+                                </label>
+                            </div>
+                        </div>
+                         /.col 
+                    </div>*@
+                    <!-- /.row -->
+
+                </div>
+            </div>
+        </div>
+
+        <!-- /.row -->
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+        <button class="btn btn-default _Add_New_User_Form_Remover_" tabindex="7">Cancel</button>
+        <button id="_Add_New_User_Form_Save_" tabindex="6" class="btn btn-info pull-right">Save</button>
+    </div>
+
+</div>
+<script src="@Url.Content("~/Resources/js/Admin/UserI.js")"></script>
