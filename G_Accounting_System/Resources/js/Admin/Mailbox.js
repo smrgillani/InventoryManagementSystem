@@ -465,6 +465,22 @@ $("._Compose_Mail_").click(function () {
     }
 });
 
+function emailNotification() {
+    var token = $('[name=__RequestVerificationToken]').val();
+    $.ajax({
+        async: false,
+        url: '/Mailbox/Notification',
+        type: "Post",
+        data: { __RequestVerificationToken: token },
+    }).done(function (resp) {
+        console.log(resp);
+    }).fail(function () {
+        $('#_Error_Message_Display_ > span').html('Network Error.');
+        $('#_Error_Message_Display_').slideDown("slow");
+        $('html, body').animate({ scrollTop: $('#_Error_Message_Display_').offset().top }, 'slow');
+    });
+}
+
 //setInterval(function () {
 //    var token = $('[name=__RequestVerificationToken]').val();
 //    $.ajax({

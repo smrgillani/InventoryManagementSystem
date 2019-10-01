@@ -102,7 +102,6 @@ function getCheckedUserPrivileges() {
     var View = "";
     var Profile = "";
     $('#_tbl_UserPrivileges_Body_ tr').each(function (indexoftr, tr) {
-
         var chkAdd = $(this).find($('td')).find($('.chkAdd'));
         var chkEdit = $(this).find($('td')).find($('.chkEdit'));
         //var chkDelete = $(this).find($('td')).find($('.chkDelete'));

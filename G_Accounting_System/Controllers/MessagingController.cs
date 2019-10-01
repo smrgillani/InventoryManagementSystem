@@ -21,6 +21,7 @@ namespace G_Accounting_System.Controllers
         [PermissionsAuthorize]
         public ActionResult Index()
         {
+            ViewBag.userID = Session["UserId"];
             return View();
         }
 
@@ -32,7 +33,7 @@ namespace G_Accounting_System.Controllers
 
             List<Messages> messages = new Catalog().Messages(Sender_id, Receiver_id);
             List<Message> message = new List<Message>();
-
+            Contacts ReceiverName = new Catalog().SelectUser(Receiver_id).Name;
             if (messages != null)
             {
                 foreach (var dbr in messages)
@@ -53,13 +54,14 @@ namespace G_Accounting_System.Controllers
                     message.TrimExcess();
                     //Session["Messages"] = message;
                 }
-
             }
+
+            
             else
             {
                 //Session["Messages"] = null;
             }
-            return Json(new { Messages = message }, JsonRequestBehavior.AllowGet);
+            return Json(new { Messages = message, ReceiverName = ReceiverName }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

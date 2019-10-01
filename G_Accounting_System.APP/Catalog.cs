@@ -558,6 +558,11 @@ namespace G_Accounting_System.APP
             return new AdminDAL().RolePrivileges(search);
         }
 
+        public RolePrivileges Privileges(int Priv_id)
+        {
+            return new AdminDAL().Privileges(Priv_id);
+        }
+
         public List<UserPrivilegess> UserPrivilegess(int User_id)
         {
             return new AdminDAL().UserPrivilegess(User_id);

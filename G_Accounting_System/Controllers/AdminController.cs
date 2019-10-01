@@ -17,6 +17,7 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using G_Accounting_System.Code.Helpers;
+using System.Security.Principal;
 
 namespace G_Accounting_System.Controllers
 {
@@ -55,8 +56,8 @@ namespace G_Accounting_System.Controllers
                         user.email = users.email;
                         user.password = loginuser.password;
                         user.attached_profile = users.Name.Name;
-                        FormsAuthentication.SetAuthCookie(user.email, false);
-                        var authTicket = new FormsAuthenticationTicket(1, user.email, DateTime.Now, DateTime.Now.AddMinutes(1440), false, user.email);
+                        FormsAuthentication.SetAuthCookie(user.id.ToString(), false);
+                        var authTicket = new FormsAuthenticationTicket(1, user.id.ToString(), DateTime.Now, DateTime.Now.AddMinutes(1440), false, user.id.ToString());
                         string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
                         var authCookie = new System.Web.HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
                         HttpContext.Response.Cookies.Add(authCookie);
@@ -104,6 +105,7 @@ namespace G_Accounting_System.Controllers
                                 Session["Role"] = users.Role;
                                 Session["UserId"] = users.id;
                                 Session["Premises_id"] = users.Premises_id;
+                               
                                 Session.Timeout = 1440;
 
                                 //string token = createToken(model.email);
@@ -143,6 +145,11 @@ namespace G_Accounting_System.Controllers
                                 //{
                                 //    //Session["Messages"] = null;
                                 //}
+
+                                //string userName = "user" + new Random().Next(0, 44449);
+
+                                
+
                                 return RedirectToAction("Index", "Dashboard");
                             }
                             else

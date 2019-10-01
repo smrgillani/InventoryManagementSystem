@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "G_Accounting_System.DAL", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "G_Accounting_System.ENT", "G_Accounting_System.ENT\G_Accounting_System.ENT.csproj", "{A4FE126F-B2A4-4A2B-A21E-548237C4BD00}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSocketsConsoleApp", "WebSocketsConsoleApp\WebSocketsConsoleApp.csproj", "{4EB15DC5-2AB9-430B-84D1-0246AF07803B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{A4FE126F-B2A4-4A2B-A21E-548237C4BD00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4FE126F-B2A4-4A2B-A21E-548237C4BD00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4FE126F-B2A4-4A2B-A21E-548237C4BD00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EB15DC5-2AB9-430B-84D1-0246AF07803B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EB15DC5-2AB9-430B-84D1-0246AF07803B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EB15DC5-2AB9-430B-84D1-0246AF07803B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EB15DC5-2AB9-430B-84D1-0246AF07803B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

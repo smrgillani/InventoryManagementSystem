@@ -22,7 +22,7 @@
 }
 
 $(function () {
-    MessageNotifications();
+    //  MessageNotifications();
     var token = $('[name=__RequestVerificationToken]').val();
     $.ajax({
         async: true,
@@ -42,6 +42,7 @@ function MessageNotifications() {
     $.ajax({
         url: '/Admin/MessagesNotifications',
         type: "POST",
+        async: false,
         data: { __RequestVerificationToken: token },
 
     }).done(function (resp) {
@@ -74,9 +75,10 @@ function MessageNotifications() {
                     "<img src='/Resources/img/user2-160x160.jpg') class='img-circle' alt='User Image'>" +
                     "</div>" +
                     "<h4>" + item.SenderName +
-                    "<small><i class='fa fa-clock-o'></i>" + item.Date + item.Time + "</small>" +
+
                     "</h4>" +
                     "<p>" + item.strMessage + "</p>" +
+                    "<small><i class='fa fa-clock-o'></i> " + item.Date + " " + item.Time + "</small>" +
                     "</a>" +
                     "</li >";
 
@@ -164,3 +166,4 @@ function ChangePasswordUpdate() {
 //setInterval(function () {
 //    MessageNotifications();
 //}, 1000);  
+

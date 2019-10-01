@@ -21,5 +21,7 @@ namespace G_Accounting_System.Models
         public string Year { get; set; }
         public string pFlag { get; set; }
         public string pDesc { get; set; }
+        public string Type { get; set; }
+        public int User_id { get; set; }
     }
 }

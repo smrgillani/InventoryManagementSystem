@@ -84,6 +84,7 @@ namespace G_Accounting_System.Controllers
                         //li.Delete = dbr.Delete;
                         li.View = dbr.View;
                         li.Profile = dbr.Profile;
+                        li.ControllerName = new Catalog().Privileges(dbr.priv_ID).Priv_Name;
                         up.Add(li);
 
                         i++;

@@ -30,6 +30,7 @@ using System.Threading;
 using Microsoft.ServiceModel.WebSockets;
 using Microsoft.Web.WebSockets;
 using G_Accounting_System.Auth;
+using System.Configuration;
 
 namespace G_Accounting_System.Controllers
 {
@@ -1627,136 +1628,150 @@ namespace G_Accounting_System.Controllers
 
         #endregion
 
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public JsonResult Notification()
-        {
-            int response = 0;
-            List<Email> email = new List<Email>();
-            List<MailAttachment> attactments = new List<MailAttachment>();
-            MailAttachment att = new MailAttachment();
-
-            Users users = new Catalog().SelectUser(Convert.ToInt32(Session["UserId"]));
-            User user = new User();
-            try
-            {
-                if (users != null)
-                {
-                    user.email = users.email;
-                    user.Name = users.Name.Name;
-                    user.password = users.password;
-                }
+        
 
 
-                using (var client = new ImapClient())
-                {
-                    if (user.email.Contains("@yahoo") || user.email.Contains("@ymail"))
-                    {
-                        client.Connect("imap.mail.yahoo.com", 993, SecureSocketOptions.SslOnConnect);
-                        client.Authenticate("salmanahmed635@yahoo.com", "unforgetable");
-
-                    }
-                    else if (user.email.Contains("@gmail"))
-                    {
-                        client.Connect("imap.gmail.com", 993, SecureSocketOptions.SslOnConnect);
-                        client.Authenticate("salmanahmed635@gmail.com", "unforgetable");
-
-                    }
-                    else if (user.email.Contains("@hotmail") || user.email.Contains("@live") || user.email.Contains("@outlook"))
-                    {
-                        client.Connect("imap-mail.outlook.com", 993, SecureSocketOptions.SslOnConnect);
-                        client.Authenticate("salmanahmed635@outlook.com", "unforgetable");
-                    }
-                    client.Inbox.Open(FolderAccess.ReadOnly);
-                    var messages = client.Inbox.Fetch(0, -1, MessageSummaryItems.Full | MessageSummaryItems.UniqueId).ToList();
-                    client.Inbox.MessageExpunged += (sender, e) =>
-                    {
-                        var folder = (ImapFolder)sender;
-
-                        if (e.Index < messages.Count)
-                        {
-                            var message = messages[e.Index];
-
-                            Console.WriteLine("{0}: expunged message {1}: Subject: {2}", folder, e.Index, message.Envelope.Subject);
-
-                            // Note: If you are keeping a local cache of message information
-                            // (e.g. MessageSummary data) for the folder, then you'll need
-                            // to remove the message at e.Index.
-                            messages.RemoveAt(e.Index);
-                        }
-                        else
-                        {
-                            Console.WriteLine("{0}: expunged message {1}: Unknown message.", folder, e.Index);
-                        }
-                    };
-
-                    // Keep track of changes to the number of messages in the folder (this is how we'll tell if new messages have arrived).
-                    client.Inbox.CountChanged += (sender, e) =>
-                    {
-                        // Note: the CountChanged event will fire when new messages arrive in the folder and/or when messages are expunged.
-                        var folder = (ImapFolder)sender;
-
-                        Console.WriteLine("The number of messages in {0} has changed.", folder);
-
-                        // Note: because we are keeping track of the MessageExpunged event and updating our
-                        // 'messages' list, we know that if we get a CountChanged event and folder.Count is
-                        // larger than messages.Count, then it means that new messages have arrived.
-                        if (folder.Count > messages.Count)
-                        {
-                            Console.WriteLine("{0} new messages have arrived.", folder.Count - messages.Count);
-                            WebSocketCollection c = new WebSocketCollection();
-                            c.Broadcast(folder.Count - messages.Count + "new emails");
-                            // Note: your first instict may be to fetch these new messages now, but you cannot do
-                            // that in this event handler (the ImapFolder is not re-entrant).
-                            // 
-                            // If this code had access to the 'done' CancellationTokenSource (see below), it could
-                            // cancel that to cause the IDLE loop to end.
-                        }
-                    };
-
-                    // Keep track of flag changes.
-                    client.Inbox.MessageFlagsChanged += (sender, e) =>
-                    {
-                        var folder = (ImapFolder)sender;
 
 
-                        Console.WriteLine("{0}: flags for message {1} have changed to: {2}.", folder, e.Index, e.Flags);
-                    };
-
-                    Console.WriteLine("Hit any key to end the IDLE loop.");
-                    using (var done = new CancellationTokenSource())
-                    {
-                        // Note: when the 'done' CancellationTokenSource is cancelled, it ends to IDLE loop.
-                        var thread = new Thread(IdleLoop);
-
-                        thread.Start(new IdleState(client, done.Token));
-
-                        Console.ReadKey();
-                        done.Cancel();
-                        thread.Join();
-                    }
-
-                    if (client.Inbox.Count > messages.Count)
-                    {
-                        Console.WriteLine("The new messages that arrived during IDLE are:");
-                        foreach (var message in client.Inbox.Fetch(messages.Count, -1, MessageSummaryItems.Full | MessageSummaryItems.UniqueId))
-                            Console.WriteLine("Subject: {0}", message.Envelope.Subject);
-                    }
-
-                    client.Disconnect(true);
-                    client.Disconnect(true);
-                }
-            }
-            catch (Exception e)
-            {
-
-            }
-            return Json(response, JsonRequestBehavior.AllowGet);
-        }
 
 
-        static void IdleLoop(object state)
+
+
+
+
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public JsonResult Notification()
+        //{
+
+        //    int response = 0;
+        //    List<Email> email = new List<Email>();
+        //    List<MailAttachment> attactments = new List<MailAttachment>();
+        //    MailAttachment att = new MailAttachment();
+
+        //    Users users = new Catalog().SelectUser(Convert.ToInt32(Session["UserId"]));
+        //    User user = new User();
+        //    try
+        //    {
+        //        if (users != null)
+        //        {
+        //            user.email = users.email;
+        //            user.Name = users.Name.Name;
+        //            user.password = users.password;
+        //        }
+
+
+        //        using (var client = new ImapClient())
+        //        {
+        //            if (user.email.Contains("@yahoo") || user.email.Contains("@ymail"))
+        //            {
+        //                client.Connect("imap.mail.yahoo.com", 993, SecureSocketOptions.SslOnConnect);
+        //                client.Authenticate("salmanahmed635@yahoo.com", "unforgetable");
+
+        //            }
+        //            else if (user.email.Contains("@gmail"))
+        //            {
+        //                client.Connect("imap.gmail.com", 993, SecureSocketOptions.SslOnConnect);
+        //                client.Authenticate("salmanahmed635@gmail.com", "unforgetable");
+
+        //            }
+        //            else if (user.email.Contains("@hotmail") || user.email.Contains("@live") || user.email.Contains("@outlook"))
+        //            {
+        //                client.Connect("imap-mail.outlook.com", 993, SecureSocketOptions.SslOnConnect);
+        //                client.Authenticate("salmanahmed635@outlook.com", "unforgetable");
+        //            }
+
+        //            client.Inbox.Open(FolderAccess.ReadOnly);
+
+        //            var messages = client.Inbox.Fetch(0, -1, MessageSummaryItems.Full | MessageSummaryItems.UniqueId).ToList();
+        //            client.Inbox.MessageExpunged += (sender, e) =>
+        //            {
+        //                var folder = (ImapFolder)sender;
+
+        //                if (e.Index < messages.Count)
+        //                {
+        //                    var message = messages[e.Index];
+
+        //                    //Console.WriteLine("{0}: expunged message {1}: Subject: {2}", folder, e.Index, message.Envelope.Subject);
+
+        //                    // Note: If you are keeping a local cache of message information
+        //                    // (e.g. MessageSummary data) for the folder, then you'll need
+        //                    // to remove the message at e.Index.
+        //                    //messages.RemoveAt(e.Index);
+        //                }
+        //                else
+        //                {
+        //                    //Console.WriteLine("{0}: expunged message {1}: Unknown message.", folder, e.Index);
+        //                }
+        //            };
+
+        //            // Keep track of changes to the number of messages in the folder (this is how we'll tell if new messages have arrived).
+        //            client.Inbox.CountChanged += (sender, e) =>
+        //            {
+        //                // Note: the CountChanged event will fire when new messages arrive in the folder and/or when messages are expunged.
+        //                var folder = (ImapFolder)sender;
+
+        //                //Console.WriteLine("The number of messages in {0} has changed.", folder);
+
+        //                // Note: because we are keeping track of the MessageExpunged event and updating our
+        //                // 'messages' list, we know that if we get a CountChanged event and folder.Count is
+        //                // larger than messages.Count, then it means that new messages have arrived.
+        //                if (folder.Count > messages.Count)
+        //                {
+        //                    //Console.WriteLine("{0} new messages have arrived.", folder.Count - messages.Count);
+        //                    WebSocketCollection c = new WebSocketCollection();
+        //                    c.Broadcast(folder.Count - messages.Count + "new emails");
+        //                    // Note: your first instict may be to fetch these new messages now, but you cannot do
+        //                    // that in this event handler (the ImapFolder is not re-entrant).
+        //                    // 
+        //                    // If this code had access to the 'done' CancellationTokenSource (see below), it could
+        //                    // cancel that to cause the IDLE loop to end.
+        //                }
+        //            };
+
+        //            // Keep track of flag changes.
+        //            client.Inbox.MessageFlagsChanged += (sender, e) =>
+        //            {
+        //                var folder = (ImapFolder)sender;
+
+
+        //                //Console.WriteLine("{0}: flags for message {1} have changed to: {2}.", folder, e.Index, e.Flags);
+        //            };
+
+        //            Console.WriteLine("Hit any key to end the IDLE loop.");
+        //            using (var done = new CancellationTokenSource())
+        //            {
+        //                // Note: when the 'done' CancellationTokenSource is cancelled, it ends to IDLE loop.
+        //                var thread = new Thread(IdleLoop);
+
+        //                thread.Start(new IdleState(client, done.Token));
+
+        //                //Console.ReadKey();
+        //                done.Cancel();
+        //                thread.Join();
+        //            }
+
+        //            if (client.Inbox.Count > messages.Count)
+        //            {
+        //                Console.WriteLine("The new messages that arrived during IDLE are:");
+        //                foreach (var message in client.Inbox.Fetch(messages.Count, -1, MessageSummaryItems.Full | MessageSummaryItems.UniqueId))
+        //                    Console.WriteLine("Subject: {0}", message.Envelope.Subject);
+        //            }
+
+        //            client.Disconnect(true);
+        //            client.Disconnect(true);
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+
+        //    }
+        //    return Json(response, JsonRequestBehavior.AllowGet);
+        //}
+
+
+        public void IdleLoop(object state)
         {
             var idle = (IdleState)state;
 
@@ -1768,7 +1783,7 @@ namespace G_Accounting_System.Controllers
                 // For GMail, we use a 9 minute interval because they do not seem to keep the connection alive for more than ~10 minutes.
                 while (!idle.IsCancellationRequested)
                 {
-                    using (var timeout = new CancellationTokenSource(new TimeSpan(0, 9, 0)))
+                    using (var timeout = new CancellationTokenSource(new TimeSpan(0, 0, 10)))
                     {
                         try
                         {

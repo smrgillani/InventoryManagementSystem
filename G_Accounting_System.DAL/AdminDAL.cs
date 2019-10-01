@@ -155,6 +155,17 @@ namespace G_Accounting_System.DAL
             return fetchRPEntries(cmd);
         }
 
+        public RolePrivileges Privileges(int Priv_id)
+        {
+            SqlCommand cmd;
+
+            cmd = new SqlCommand("proc_Privileges", DALUtil.getConnection());
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@pPriv_id", Priv_id);
+            List<RolePrivileges> temp = fetchPreEntries(cmd);
+            return (temp != null) ? temp[0] : null;
+        }
+
         public List<UserPrivilegess> UserPrivilegess(int User_id)
         {
             SqlCommand cmd;
@@ -305,6 +316,32 @@ namespace G_Accounting_System.DAL
                         li.Priv_id = Convert.ToInt32(dr["Priv_id"]);
                         li.Priv_Name = Convert.ToString(dr["Priv_Name"]);
                         li.Check_Status = Convert.ToString(dr["Check_Status"]);
+
+                        rp.Add(li);
+                    }
+                    rp.TrimExcess();
+                }
+            }
+            return rp;
+        }
+
+        private List<RolePrivileges> fetchPreEntries(SqlCommand cmd)
+        {
+            SqlConnection con = cmd.Connection;
+            List<RolePrivileges> rp = null;
+            con.Open();
+            using (con)
+            {
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    rp = new List<RolePrivileges>();
+                    while (dr.Read())
+                    {
+                        RolePrivileges li = new RolePrivileges();
+                        li.Priv_id = Convert.ToInt32(dr["Priv_id"]);
+                        li.Priv_Name = Convert.ToString(dr["Priv_Name"]);
+                        li.Enable = Convert.ToString(dr["Enable"]);
 
                         rp.Add(li);
                     }

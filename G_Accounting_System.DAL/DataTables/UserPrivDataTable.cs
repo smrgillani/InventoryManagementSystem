@@ -19,7 +19,8 @@ namespace G_Accounting_System.DAL.DataTables
             DataTable.Columns.Add(new DataColumn("Add", typeof(int)) { AllowDBNull = true });
             DataTable.Columns.Add(new DataColumn("Edit", typeof(int)) { AllowDBNull = true });
             DataTable.Columns.Add(new DataColumn("View", typeof(int)) { AllowDBNull = true });
-            DataTable.Columns.Add(new DataColumn("Profile", typeof(int)) { AllowDBNull = true });    
+            DataTable.Columns.Add(new DataColumn("Profile", typeof(int)) { AllowDBNull = true });
+            DataTable.Columns.Add(new DataColumn("ControllerName", typeof(string)) { AllowDBNull = true });
 
         }
         public void FillDataTable(List<UserPrivilegess> list)
@@ -40,6 +41,7 @@ namespace G_Accounting_System.DAL.DataTables
                 //currentRow["Delete"] = currentObj.Delete;
                 currentRow["View"] = currentObj.View;
                 currentRow["Profile"] = currentObj.Profile;
+                currentRow["ControllerName"] = currentObj.ControllerName;
 
                 DataTable.Rows.Add(currentRow);
             }

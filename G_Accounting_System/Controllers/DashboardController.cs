@@ -9,6 +9,7 @@ using G_Accounting_System.ENT;
 using G_Accounting_System.APP;
 using Newtonsoft.Json;
 using G_Accounting_System.Code.Helpers;
+using System.Security.Principal;
 
 namespace G_Accounting_System.Controllers
 {
@@ -19,6 +20,7 @@ namespace G_Accounting_System.Controllers
         // GET: /Dashboard/
         public ActionResult Index()
         {
+            ViewBag.userID = Session["UserId"];
             return View();
         }
 
@@ -73,8 +75,8 @@ namespace G_Accounting_System.Controllers
                     topSellingItem.Add(li);
                 }
             }
-            
-            
+
+
 
             return Json(topSellingItem, JsonRequestBehavior.AllowGet);
         }

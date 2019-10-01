@@ -991,45 +991,109 @@
         });
 
     </script>
+    <script type="text/javascript">
+        var ws;
+        $().ready(function () {
+            var ws;
+            ws = new WebSocket("ws://localhost:65097/MyWebSocketHandler.ashx");
+            ws.onopen = function () {
 
-    @*<script type="text/javascript">
-            $(document).ready(function () {
-
-                var username = prompt('Please enter a username:');
-
-                var uri = 'ws://' + window.location.hostname + window.location.pathname.replace('chat.html', 'api/Chat') + '?username=' + username;
-                websocket = new WebSocket(uri);
-
-                websocket.onopen = function () {
-                    $('#messages').prepend('<div>Connected.</div>');
-
-                    $('#chatform').submit(function (event) {
-                        websocket.send($('#inputbox').val());
-                        $('#inputbox').val('');
-                        event.preventDefault();
-
-                    });
-
+                var objE = {
+                    user_id: $("#LoggedInUser_id").val(),
+                    type: "Email Notification"
                 };
+                ws.send(JSON.stringify(objE));
+                
+                //MessageNotifications();
+                //var obj = {
+                //    Receiver_id: $('#receiver_id').val(),
+                //    type: "Message"
+                //};
+                //if ($('#receiver_id').val() != "0") {
+                //    ws.send(JSON.stringify(obj));
+                //}
+            };
+            ws.onmessage = function (evt) {
+                var jsonString = evt.data;
+                var response = JSON.parse(jsonString);
+                var responseuserId = response.userId;
 
-                websocket.onerror = function (event) {
-                    $('#messages').prepend('<div>ERROR</div>');
+                if (response.type == "Message") {
+                    alert("Message");
+                    if (response.Receiver_id != $('#receiver_id').val()) {
+                        var receiver = "<div class='direct-chat-msg right'>" +
+                            "<div class='direct-chat-info clearfix'>" +
+                            "<span class='direct-chat-name pull-right'>" + response.ReceiverName + "</span>" +
+                            "<span class='direct-chat-timestamp pull-left'>" + response.Date + " " + response.Time + "</span>" +
+                            "</div>" +
+                            "<img class='direct-chat-img' src='~/Resources/dist/img/usericon.png' alt='message user image'>" +
+                            "<div class='direct-chat-text'>" + response.message + "</div>" +
+                            "</div>" +
+                            "</br>";
 
-                };
+                        $('.chatCommentHeight').append(receiver);
 
-                websocket.onmessage = function (event) {
-                    $('#messages').prepend('<div>' + event.data + '</div>');
+                    }
+                    else {
+                        var sender = "<div class='direct-chat-msg sender'>" +
+                            "<div class='direct-chat-info clearfix'>" +
+                            "<span class='direct-chat-name pull-left'>" + response.SenderName + "</span>" +
+                            "<span class='direct-chat-timestamp pull-right'>" + response.Date + " " + response.Time + "</span>" +
+                            "</div>" +
+                            "<img class='direct-chat-img' src='~/Resources/dist/img/usericon.png' alt='message user image'>" +
+                            "<div class='direct-chat-text'>" + response.message + "</div>" +
+                            "</div>" +
+                            "</br>";
 
-                };
+                        $('.chatCommentHeight').append(sender);
 
+                    }
+                    var h = $(".chatCommentHeight").get(0).scrollHeight;
+                    $(".chatCommentHeight").animate({ scrollTop: h }, 1000);
+                }
+                else if (response.type == "Message Notification") {
+                    console.log(resp);
+                }
+                else if (response.type == "Email Notification") {
+                    alert("Email Notification");
+
+                }
+                else if (response.type == "warning") {
+                    outputText = "WARN: " + response.message;
+                }
+                else if (response.type == "error") {
+                    outputText = responseuserId + "got some error";
+                }
+            };
+            ws.onerror = function (evt) {
+
+            };
+            ws.onclose = function () {
+
+            };
+
+            $(".SendMessage").click(function () {
+                if (ws.readyState == WebSocket.OPEN) {
+                    var obj = {
+                        Sender_id: $("#userID").text(),
+                        Receiver_id: $('#receiver_id').val(),
+                        strMessage: $("input[name=message]").val(),
+                        type: "Message"
+                    };
+                    ws.send(JSON.stringify(obj));
+                }
             });
-
-        </script>*@
-    @*<form id="chatform" action="">
-            <input id="inputbox" />
-
-        </form>
-        <div id="messages" />*@
-
+        });
+    </script>
+    @*<input type="button" value="Send" id="btnSend" />*@
+    @*userId: <asp:label runat="server" ID="cuserID">@ViewBag.userID</asp:label>
+        <input type="button" value="Connect" id="btnConnect" />
+            <input type="button" value="Disconnect" id="btnDisconnect" />
+            <input type="button" value="Hack WebSite" id="btnHack" />
+            <input type="text" id="userId" />
+            <input type="text" id="textInput" />
+            <input type="button" value="Send" id="btnSend" />
+            <span id="spanStatus">(display)</span>
+            <span id="chatHistory"></span>*@
 </body>
 </html>
